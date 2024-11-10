@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="">Nothing</p>
+    <p class="font-bold text-5xl text-center">Thời đại Vape</p>
   </div>
 </template>
 
