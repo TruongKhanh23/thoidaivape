@@ -1,27 +1,27 @@
 <template>
-  <nav class="bg-white py-4">
-    <ul class="flex space-x-6 justify-center">
-      <li v-for="item in menuItems" :key="item.name" class="relative">
-        <!-- Điều hướng đến đường dẫn mới khi click vào mục chính -->
+  <nav class="bg-white py-4 w-[100%] md:w-[100%] lg:w-[60%] mx-auto">
+    <ul class="flex justify-between space-x-6">
+      <li
+        v-for="item in menuItems"
+        :key="item.name"
+        class="relative"
+        @mouseover="item.isHovered = true"
+        @mouseleave="item.isHovered = false"
+      >
         <a
           :href="`/bo-suu-tap/${item.name.toLowerCase().replace(' ', '-')}`"
-          @mouseover="item.isHovered = true"
-          @mouseleave="item.isHovered = false"
-          class="text-black hover:text-green-500 transition-colors duration-300 flex items-center"
+          class="text-black hover:text-green-500 transition-colors duration-300 flex items-center uppercase font-semibold"
         >
           {{ item.name }}
-          <!-- Hiển thị icon mũi tên cho mục có subMenu -->
           <font-awesome-icon
             v-if="item.subMenu"
             :icon="item.isHovered ? 'chevron-up' : 'chevron-down'"
             class="ml-1 transition-transform duration-300"
           />
         </a>
-
-        <!-- Submenu xổ xuống khi hover vào mục có subMenu -->
         <ul
           v-if="item.subMenu && item.isHovered"
-          class="absolute left-0 mt-2 bg-white shadow-md rounded-md py-2"
+          class="absolute left-0 bg-white shadow-md rounded-md py-2 w-48"
         >
           <li
             v-for="subItem in item.subMenu"
@@ -42,7 +42,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
-// Đăng ký các icon cần thiết
 library.add(faChevronDown, faChevronUp)
 
 const menuItems = reactive([
@@ -54,7 +53,7 @@ const menuItems = reactive([
   {
     name: 'Phụ kiện',
     subMenu: ['Đầu pod', 'Occ - coil'],
-    isHovered: false, // Biến để theo dõi trạng thái hover
+    isHovered: false,
   },
   { name: 'Bài viết' },
   { name: 'Thông Tin' },
@@ -62,17 +61,26 @@ const menuItems = reactive([
 </script>
 
 <style scoped>
-/* Tăng độ rộng và làm nền trắng cho thanh điều hướng */
-nav {
-  background-color: white;
+/* Tăng độ rộng submenu */
+ul.w-48 {
+  width: 200%;
 }
 
-/* Thiết lập màu khi hover cho các mục */
+/* Đổi màu cho các mục khi hover */
 a {
   color: black;
   text-decoration: none;
 }
 a:hover {
   color: #87d068;
+}
+
+/* Giữ focus khi hover */
+li.relative:hover > ul {
+  display: block;
+}
+ul.absolute {
+  display: none;
+  position: absolute;
 }
 </style>
