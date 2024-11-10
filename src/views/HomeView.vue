@@ -1,9 +1,5 @@
 <template>
   <div class="text-center">
-    <p>
-      Icon Search - Logo - Icon user - Icon giỏ hàng (có icon vòng tròn đỏ với số màu trắng bên góc
-      trên bên phải)
-    </p>
     <p>Navigation</p>
     <p>Banner Slider</p>
     <p>Danh sách sản phẩm</p>
