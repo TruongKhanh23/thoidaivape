@@ -9,7 +9,7 @@
         @mouseleave="item.isHovered = false"
       >
         <a
-          :href="`/bo-suu-tap/${item.name.toLowerCase().replace(' ', '-')}`"
+          :href="`/bo-suu-tap/${convertToSlug(item.name)}`"
           :class="[
             'text-black hover:text-green-500 transition-colors duration-300 flex items-center uppercase font-semibold',
             item.name === 'Sale' ? 'sale-item' : '',
@@ -33,7 +33,7 @@
             :key="subItem"
             class="px-4 py-2 hover:text-green-500 transition-colors duration-300"
           >
-            <a :href="`/bo-suu-tap/${subItem.toLowerCase().replace(' ', '-')}`">{{ subItem }}</a>
+            <a :href="`/bo-suu-tap/${convertToSlug(subItem)}`">{{ subItem }}</a>
           </li>
         </ul>
       </li>
@@ -49,15 +49,26 @@ import { faChevronDown, faChevronUp, faTag } from '@fortawesome/free-solid-svg-i
 
 library.add(faChevronDown, faChevronUp, faTag)
 
+// Hàm chuyển đổi chuỗi có dấu thành không dấu và thay dấu cách thành dấu gạch ngang
+function convertToSlug(text) {
+  return text
+    .normalize('NFD') // Tách dấu ra khỏi ký tự
+    .replace(/[\u0300-\u036f]/g, '') // Loại bỏ dấu
+    .replace(/đ/g, 'd') // Thay 'đ' thành 'd'
+    .replace(/Đ/g, 'D') // Thay 'Đ' thành 'D'
+    .toLowerCase()
+    .replace(/\s+/g, '-') // Thay dấu cách bằng dấu gạch ngang
+}
+
 const menuItems = reactive([
   { name: 'Sale' },
   { name: 'Podsystem' },
-  { name: 'Vape - Box' },
+  { name: 'Vape & Box' },
   { name: 'Saltnic' },
   { name: 'Freebase' },
   {
     name: 'Phụ kiện',
-    subMenu: ['Đầu pod', 'Occ - coil'],
+    subMenu: ['Đầu pod', 'Occ & coil'],
     isHovered: false,
   },
   { name: 'Bài viết' },
