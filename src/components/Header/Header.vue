@@ -1,3 +1,4 @@
+<!-- Header.vue -->
 <template>
   <div class="flex justify-center items-center p-4 w-full">
     <div class="grid grid-cols-3 items-center w-[100%] md:w-[100%] lg:w-[70%]">
@@ -25,9 +26,8 @@
         <button @click="goToLogin" class="p-2 text-xl">
           <font-awesome-icon icon="user" />
         </button>
-        <button @click="goToCart" class="p-2 text-xl">
-          <font-awesome-icon icon="shopping-cart" />
-        </button>
+        <!-- Sử dụng IconCart component -->
+        <IconCart @click="goToCart" />
       </div>
     </div>
   </div>
@@ -38,6 +38,7 @@ import { ref } from 'vue'
 import SearchMobile from './SearchMobile.vue'
 import Search from './Search.vue'
 import Logo from './Logo.vue'
+import IconCart from './IconCart.vue' // Import IconCart component
 
 const isSearchVisible = ref(false) // Define the state of the search visibility
 const isMobile = ref(window.innerWidth < 1024) // Check if the screen width is mobile
