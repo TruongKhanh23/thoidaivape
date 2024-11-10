@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center">
+  <div class="text-center bg-[#EAEBED] min-h-screen">
     <p>Banner Slider</p>
     <p>Danh sách sản phẩm</p>
     <p>Danh mục sản phẩm nổi bật</p>
@@ -10,7 +10,6 @@
     <p>Mạng xã hội</p>
     <p>Tin tức nổi bật</p>
     <p>Cảnh báo</p>
-    <p>Footer</p>
   </div>
 </template>
 
