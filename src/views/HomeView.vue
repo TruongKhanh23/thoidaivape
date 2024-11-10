@@ -1,6 +1,5 @@
 <template>
   <div class="text-center">
-    <p>Navigation</p>
     <p>Banner Slider</p>
     <p>Danh sách sản phẩm</p>
     <p>Danh mục sản phẩm nổi bật</p>
