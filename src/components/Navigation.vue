@@ -21,7 +21,7 @@
           <font-awesome-icon
             v-if="item.subMenu"
             :icon="item.isHovered ? 'chevron-up' : 'chevron-down'"
-            class="ml-1 transition-transform duration-300"
+            class="ml-1 transition-transform duration-300 text-xs"
           />
         </a>
         <ul
