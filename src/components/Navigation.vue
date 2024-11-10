@@ -15,6 +15,8 @@
             item.name === 'Sale' ? 'sale-item' : '',
           ]"
         >
+          <!-- Hiển thị icon nếu item.name là "Sale" -->
+          <font-awesome-icon v-if="item.name === 'Sale'" icon="tag" class="mr-2" />
           {{ item.name }}
           <font-awesome-icon
             v-if="item.subMenu"
@@ -43,9 +45,9 @@
 import { reactive } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faTag } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faChevronDown, faChevronUp)
+library.add(faChevronDown, faChevronUp, faTag)
 
 const menuItems = reactive([
   { name: 'Sale' },
