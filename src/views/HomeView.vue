@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div>
+    <p class="font-bold text-5xl text-center">Thời đại Vape</p>
+  </div>
 </template>
+
+<script setup></script>
