@@ -1,41 +1,23 @@
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
+import { mutations } from '@/store/mutations'
+import { actions } from '@/store/actions'
+import { getters } from '@/store/getters'
+import { state } from '@/store/state'
+import type { State } from '@/store/state'
 
 const { createStore } = Vuex
-
-export interface State {
-  count: number
-}
 
 const vuexPersist = new VuexPersist({
   key: 'thoidaivape',
   storage: localStorage,
 })
 
-// Khởi tạo store
 const store = createStore<State>({
-  state: {
-    count: 0,
-  },
-  mutations: {
-    increment(state: State) {
-      state.count++
-    },
-    decrement(state: State) {
-      state.count--
-    },
-  },
-  actions: {
-    increment(context: { commit: Function }) {
-      context.commit('increment')
-    },
-    decrement(context: { commit: Function }) {
-      context.commit('decrement')
-    },
-  },
-  getters: {
-    count: (state: State) => state.count,
-  },
+  state,
+  mutations,
+  actions,
+  getters,
   plugins: [vuexPersist.plugin],
 })
 
