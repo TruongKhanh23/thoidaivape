@@ -12,8 +12,12 @@ export default [
     name: 'app/files-to-ignore',
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
-
-  ...pluginVue.configs['flat/essential'],
+  {
+    ...pluginVue.configs['flat/essential'],
+    rules: {
+      'vue/block-lang': 'off', // Vô hiệu hóa quy tắc yêu cầu `lang` trong thẻ <script>
+    },
+  },
   ...vueTsEslintConfig(),
   skipFormatting,
 ]
