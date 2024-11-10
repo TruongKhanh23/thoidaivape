@@ -1,6 +1,6 @@
 <template>
   <nav class="bg-white py-4 w-[100%] md:w-[100%] lg:w-[60%] mx-auto">
-    <ul class="flex justify-between space-x-6">
+    <ul class="flex justify-between items-center space-x-6">
       <li
         v-for="item in menuItems"
         :key="item.name"
@@ -10,7 +10,10 @@
       >
         <a
           :href="`/bo-suu-tap/${item.name.toLowerCase().replace(' ', '-')}`"
-          class="text-black hover:text-green-500 transition-colors duration-300 flex items-center uppercase font-semibold"
+          :class="[
+            'text-black hover:text-green-500 transition-colors duration-300 flex items-center uppercase font-semibold',
+            item.name === 'Sale' ? 'sale-item' : '',
+          ]"
         >
           {{ item.name }}
           <font-awesome-icon
@@ -82,5 +85,17 @@ li.relative:hover > ul {
 ul.absolute {
   display: none;
   position: absolute;
+}
+
+/* Phong cách đặc biệt cho mục Sale */
+.sale-item {
+  background: linear-gradient(to right, #ff7e5f, #f48220);
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: transform 0.3s ease-in-out;
+}
+.sale-item:hover {
+  transform: scale(1.2);
 }
 </style>
