@@ -7,86 +7,118 @@ import ProductExchangePolicy from '../views/ProductExchangePolicy.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import PaymentPolicy from '../views/PaymentPolicy.vue'
+import ShippingPolicy from '../views/ShippingPolicy.vue'
 import Payment from '../views/Payment.vue'
 import NewsDetails from '../views/NewsDetails.vue'
 import News from '../views/News.vue'
 import Contact from '../views/Contact.vue'
 import BuyGuideline from '../views/BuyGuideline.vue'
+import About from '../views/About.vue'
+import WarrantyPolicy from '../views/WarrantyPolicy.vue'
+import TermOfService from '../views/TermOfService.vue'
+import NotFound from '../views/NotFound.vue'
+import Stores from '../views/Stores.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home', // 'name' giữ lại tiếng Anh
+      name: 'home',
       component: HomeView,
     },
     {
-      path: '/gioi-thieu', // 'path' bằng tiếng Việt
+      path: '/gioi-thieu',
       name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      component: About,
     },
     {
-      path: '/dang-nhap', // 'path' bằng tiếng Việt
+      path: '/dang-nhap',
       name: 'login',
       component: Login,
     },
     {
-      path: '/gio-hang', // 'path' bằng tiếng Việt
+      path: '/gio-hang',
       name: 'cart',
       component: Cart,
     },
     {
-      path: '/san-pham', // 'path' bằng tiếng Việt
+      path: '/bo-suu-tap/:id',
       name: 'products',
       component: Products,
+      props: true,
     },
     {
-      path: '/chinh-sach-doi-san-pham', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-doi-san-pham',
       name: 'productExchangePolicy',
       component: ProductExchangePolicy,
     },
     {
-      path: '/chi-tiet-san-pham/:id', // 'path' bằng tiếng Việt
+      path: '/chi-tiet-san-pham/:id',
       name: 'productDetails',
       component: ProductDetails,
-      props: true, // Cho phép truyền ID sản phẩm qua URL
+      props: true,
     },
     {
-      path: '/chinh-sach-bao-mat', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-bao-mat',
       name: 'privacyPolicy',
       component: PrivacyPolicy,
     },
     {
-      path: '/chinh-sach-thanh-toan', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-thanh-toan',
       name: 'paymentPolicy',
       component: PaymentPolicy,
     },
     {
-      path: '/thanh-toan', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-van-chuyen',
+      name: 'ShippingPolicy',
+      component: ShippingPolicy,
+    },
+    {
+      path: '/dieu-khoan-dich-vu',
+      name: 'TermOfService',
+      component: TermOfService,
+    },
+    {
+      path: '/thanh-toan',
       name: 'payment',
       component: Payment,
     },
     {
-      path: '/chi-tiet-tin-tuc/:id', // 'path' bằng tiếng Việt
+      path: '/chi-tiet-tin-tuc/:id',
       name: 'newsDetails',
       component: NewsDetails,
-      props: true, // Cho phép truyền ID bài viết qua URL
+      props: true,
     },
     {
-      path: '/tin-tuc', // 'path' bằng tiếng Việt
+      path: '/tin-tuc',
       name: 'news',
       component: News,
     },
     {
-      path: '/lien-he', // 'path' bằng tiếng Việt
+      path: '/lien-he',
       name: 'contact',
       component: Contact,
     },
     {
-      path: '/huong-dan-mua-hang', // 'path' bằng tiếng Việt
+      path: '/huong-dan-mua-hang',
       name: 'buyGuideline',
       component: BuyGuideline,
+    },
+    {
+      path: '/cua-hang',
+      name: 'Stores',
+      component: Stores,
+    },
+    {
+      path: '/chinh-sach-bao-hanh',
+      name: 'WarrantyPolicy',
+      component: WarrantyPolicy,
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: NotFound,
     },
   ],
 })

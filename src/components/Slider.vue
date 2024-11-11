@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center w-full pt-2">
-    <div class="w-[100%] md:w-[100%] lg:w-[60%] overflow-hidden rounded-lg relative">
+  <div class="flex justify-center items-center w-full">
+    <div class="w-full overflow-hidden rounded-lg relative">
       <div
         class="slider-container flex transition-transform duration-700 ease-out"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"

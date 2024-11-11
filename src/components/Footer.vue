@@ -5,7 +5,12 @@
     >
       <!-- Cột Logo -->
       <div class="flex justify-start items-start">
-        <img src="/img/logo_white.jfif" alt="Logo" class="h-32" />
+        <img
+          src="/img/logo_white.jfif"
+          alt="Logo"
+          class="h-32 cursor-pointer"
+          @click="navigateToHomePage"
+        />
       </div>
       <!-- Cột Chính sách -->
       <div class="flex flex-col space-y-2">
@@ -13,9 +18,9 @@
           v-for="link in policyLinks"
           :key="link.text"
           @click="navigateTo(link.path)"
-          class="font-semibold hover:text-[#87d068] transition-colors cursor-pointer"
+          class="font-semibold"
         >
-          {{ link.text }}
+          <span class="cursor-pointer hover:text-[#87d068] transition-colors">{{ link.text }}</span>
         </a>
       </div>
       <!-- Cột Công ty -->
@@ -24,9 +29,9 @@
           v-for="link in companyLinks"
           :key="link.text"
           @click="navigateTo(link.path)"
-          class="font-semibold hover:text-[#87d068] transition-colors"
+          class="font-semibold"
         >
-          {{ link.text }}
+          <span class="cursor-pointer hover:text-[#87d068] transition-colors">{{ link.text }}</span>
         </a>
       </div>
       <!-- Cột Đăng ký nhận thông tin -->
@@ -80,7 +85,7 @@ const policyLinks = [
 ]
 
 const companyLinks = [
-  { text: 'Cửa hàng', path: '/' },
+  { text: 'Cửa hàng', path: '/cua-hang' },
   { text: 'Về chúng tôi', path: '/gioi-thieu' },
   { text: 'Liên hệ', path: '/lien-he' },
   { text: 'Hướng dẫn mua hàng', path: '/huong-dan-mua-hang' },
@@ -88,5 +93,9 @@ const companyLinks = [
 
 const navigateTo = (path) => {
   router.push(path)
+}
+
+const navigateToHomePage = (path) => {
+  router.push('/')
 }
 </script>
