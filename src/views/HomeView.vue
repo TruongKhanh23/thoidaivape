@@ -1,6 +1,6 @@
 <template>
   <div class="text-center bg-[#EAEBED] min-h-screen">
-    <p>Banner Slider</p>
+    <Slider />
     <p>Danh sách sản phẩm</p>
     <p>Danh mục sản phẩm nổi bật</p>
     <p>Danh sách sản phẩm</p>
@@ -14,5 +14,6 @@
 </template>
 
 <script setup>
+import Slider from '@/components/Slider.vue';
 import VuexSample from '@/components/VuexSample.vue'
 </script>
