@@ -16,7 +16,7 @@
           v-for="(slide, index) in slides"
           :key="index"
           :style="{ background: slide.color }"
-          class="slide flex justify-center items-center w-full md:w-[100%] lg:w-[100%] h-[80vh] sm:h-[80vh] text-white text-2xl font-semibold"
+          class="slide flex justify-center items-center w-full md:w-[100%] lg:w-[100%] h-[80vh] sm:h-[80vh] text-white text-4xl font-semibold"
           @click="navigate(slide.path)"
         >
           <!-- Nội dung quảng cáo ở đây, ví dụ: tên sản phẩm -->
@@ -117,7 +117,7 @@ export default {
 <style scoped>
 .slider-container {
   display: flex;
-  width: 300%;
+  width: 100%;
 }
 
 .slide {
