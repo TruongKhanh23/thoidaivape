@@ -128,7 +128,7 @@ export default {
 <style>
 @media (max-width: 640px) {
   .slider-container .slide {
-    height: 20vh;
+    height: 30vh;
   }
 }
 </style>
