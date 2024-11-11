@@ -1,4 +1,3 @@
-<!-- NavigationMobile.vue -->
 <template>
   <div v-if="isOpen" class="fixed inset-0 z-50">
     <!-- Lớp mờ phía sau modal -->
@@ -6,28 +5,46 @@
 
     <!-- Navigation modal trượt từ trái ra -->
     <div
-      class="absolute top-0 left-0 h-full bg-gray-100 shadow-lg p-4 transition-transform duration-300 ease-out"
+      class="absolute top-0 left-0 h-full bg-white shadow-lg p-4 transition-transform duration-300 ease-out"
       :class="{ 'translate-x-0': isOpen, '-translate-x-full': !isOpen }"
-      style="width: 70vw"
+      style="width: 75vw"
     >
       <!-- Icon đóng modal -->
       <button @click="closeNavigation" class="text-xl mb-4">
         <font-awesome-icon icon="times" />
       </button>
 
+      <hr class="text-black font-bold border border-black mb-4" />
       <!-- Nội dung Navigation -->
       <nav>
         <ul>
           <li v-for="item in menuItems" :key="item.name">
-            <a
-              @click="closeNavigation()"
-              :href="`/bo-suu-tap/${convertToSlug(item.name)}`"
-              class="text-black text-lg hover:text-green-500"
-            >
-              {{ item.name }}
-            </a>
+            <div class="flex flex-col items-start justify-between my-2 font-semibold pr-4">
+              <a
+                @click="toggleSubMenu(item)"
+                class="text-black text-lg hover:text-green-500 flex items-center w-full uppercase"
+              >
+                <!-- Text menu item -->
+                <span>{{ item.name }}</span>
+
+                <!-- Biểu tượng mũi tên -->
+                <font-awesome-icon
+                  v-if="item.subMenu"
+                  :icon="['fas', item.isOpen ? 'angle-up' : 'angle-down']"
+                  class="ml-2"
+                />
+              </a>
+
+              <!-- SubMenu -->
+              <ul v-if="item.subMenu && item.isOpen" class="ml-6 my-2 space-y-2 uppercase">
+                <li v-for="subItem in item.subMenu" :key="subItem.name">
+                  <a @click="navigateTo(subItem)" class="text-black hover:text-green-500">
+                    {{ subItem.name }}
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
-          <!-- Add more links as needed -->
         </ul>
       </nav>
     </div>
@@ -35,11 +52,14 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted, reactive } from 'vue'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { faTimes, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-library.add(faTimes)
+const router = useRouter()
+
+library.add(faTimes, faAngleDown, faAngleUp)
 
 const props = defineProps({
   isOpen: Boolean, // Điều khiển mở modal
@@ -48,18 +68,38 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const menuItems = reactive([
-  { name: 'Sale' },
-  { name: 'Podsystem' },
-  { name: 'Vape & Box' },
-  { name: 'Saltnic' },
-  { name: 'Freebase' },
+  { name: 'Sale', path: 'sale', view: 'products' },
+  { name: 'Podsystem', path: 'podsystem', view: 'products' },
+  { name: 'Vape & Box', path: 'vape-box', view: 'products' },
+  { name: 'Saltnic', path: 'saltnic', view: 'products' },
+  { name: 'Freebase', path: 'freebase', view: 'products' },
   {
     name: 'Phụ kiện',
-    subMenu: ['Đầu pod', 'Occ & coil'],
+    path: 'phu-kien',
+    view: 'products',
+    subMenu: [
+      { name: 'Đầu pod', path: 'dau-pod', view: 'products' },
+      { name: 'Occ & coil', path: 'occ-coil', view: 'products' },
+    ],
+    isHovered: false,
+    isOpen: false, // Điều khiển việc mở subMenu
   },
-  { name: 'Bài viết' },
-  { name: 'Thông Tin' },
+  { name: 'Bài viết', path: 'bai-viet', view: 'news' },
+  { name: 'Thông Tin', path: 'thong-tin', view: 'about' },
 ])
+
+function toggleSubMenu(item) {
+  if (item.subMenu) {
+    item.isOpen = !item.isOpen // Đảo trạng thái của isOpen khi nhấp vào menu cha
+  } else {
+    navigateTo(item) // Nếu không có subMenu, điều hướng như bình thường
+  }
+}
+
+function navigateTo(item) {
+  closeNavigation()
+  router.push({ name: item.view, params: { id: item.path } })
+}
 
 // Đóng modal và phát sự kiện close để thông báo cho component cha
 function closeNavigation() {
@@ -80,15 +120,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleEscape)
 })
-function convertToSlug(text) {
-  return text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .replace(/Đ/g, 'D')
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-}
 </script>
 
 <style scoped>
@@ -98,5 +129,14 @@ function convertToSlug(text) {
 }
 .-translate-x-full {
   transform: translateX(-100%);
+}
+
+/* Đảm bảo subMenu thụt vào */
+.ml-6 {
+  margin-left: 1.5rem; /* Điều chỉnh độ thụt đầu dòng của subMenu */
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem; /* Khoảng cách giữa các item trong subMenu */
 }
 </style>
