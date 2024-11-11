@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white py-4 w-[100%] md:w-[100%] lg:w-[60%] mx-auto">
+  <nav class="bg-white py-4 w-[100%] hidden md:block md:w-[100%] lg:w-[60%] mx-auto">
     <ul class="flex justify-between items-center space-x-6">
       <li
         v-for="item in menuItems"
