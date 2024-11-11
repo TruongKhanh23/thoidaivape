@@ -12,81 +12,87 @@ import NewsDetails from '../views/NewsDetails.vue'
 import News from '../views/News.vue'
 import Contact from '../views/Contact.vue'
 import BuyGuideline from '../views/BuyGuideline.vue'
+import NotFound from '../views/NotFound.vue' // Import component cho trang 404
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home', // 'name' giữ lại tiếng Anh
+      name: 'home',
       component: HomeView,
     },
     {
-      path: '/gioi-thieu', // 'path' bằng tiếng Việt
+      path: '/gioi-thieu',
       name: 'about',
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/dang-nhap', // 'path' bằng tiếng Việt
+      path: '/dang-nhap',
       name: 'login',
       component: Login,
     },
     {
-      path: '/gio-hang', // 'path' bằng tiếng Việt
+      path: '/gio-hang',
       name: 'cart',
       component: Cart,
     },
     {
-      path: '/san-pham', // 'path' bằng tiếng Việt
+      path: '/san-pham',
       name: 'products',
       component: Products,
     },
     {
-      path: '/chinh-sach-doi-san-pham', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-doi-san-pham',
       name: 'productExchangePolicy',
       component: ProductExchangePolicy,
     },
     {
-      path: '/chi-tiet-san-pham/:id', // 'path' bằng tiếng Việt
+      path: '/chi-tiet-san-pham/:id',
       name: 'productDetails',
       component: ProductDetails,
-      props: true, // Cho phép truyền ID sản phẩm qua URL
+      props: true,
     },
     {
-      path: '/chinh-sach-bao-mat', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-bao-mat',
       name: 'privacyPolicy',
       component: PrivacyPolicy,
     },
     {
-      path: '/chinh-sach-thanh-toan', // 'path' bằng tiếng Việt
+      path: '/chinh-sach-thanh-toan',
       name: 'paymentPolicy',
       component: PaymentPolicy,
     },
     {
-      path: '/thanh-toan', // 'path' bằng tiếng Việt
+      path: '/thanh-toan',
       name: 'payment',
       component: Payment,
     },
     {
-      path: '/chi-tiet-tin-tuc/:id', // 'path' bằng tiếng Việt
+      path: '/chi-tiet-tin-tuc/:id',
       name: 'newsDetails',
       component: NewsDetails,
-      props: true, // Cho phép truyền ID bài viết qua URL
+      props: true,
     },
     {
-      path: '/tin-tuc', // 'path' bằng tiếng Việt
+      path: '/tin-tuc',
       name: 'news',
       component: News,
     },
     {
-      path: '/lien-he', // 'path' bằng tiếng Việt
+      path: '/lien-he',
       name: 'contact',
       component: Contact,
     },
     {
-      path: '/huong-dan-mua-hang', // 'path' bằng tiếng Việt
+      path: '/huong-dan-mua-hang',
       name: 'buyGuideline',
       component: BuyGuideline,
+    },
+    {
+      path: '/:catchAll(.*)', // Bắt mọi đường dẫn không khớp
+      name: 'NotFound',
+      component: NotFound,
     },
   ],
 })
