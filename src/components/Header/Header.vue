@@ -19,10 +19,10 @@
 
       <!-- Column 3: User and Cart Icons -->
       <div class="flex justify-end space-x-4">
-        <button @click="goToLogin" class="p-2 text-xl">
+        <button @click="navigateTo('login')" class="p-2 text-xl">
           <font-awesome-icon icon="user" />
         </button>
-        <IconCart @click="goToCart" />
+        <IconCart @click="navigateTo('cart')" />
       </div>
     </div>
   </div>
@@ -37,6 +37,9 @@ import IconCart from './IconCart.vue'
 import NavigationMobileIcon from './NavigationMobileIcon.vue'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons' // Import icon bars và times
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 library.add(faBars, faTimes) // Thêm vào thư viện FontAwesome
 
@@ -53,11 +56,7 @@ function closeSearch() {
   isSearchVisible.value = false
 }
 
-function goToLogin() {
-  window.location.href = '/login'
-}
-
-function goToCart() {
-  window.location.href = '/cart'
+function navigateTo(view) {
+  router.push({ name: view })
 }
 </script>

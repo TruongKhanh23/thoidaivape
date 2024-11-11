@@ -7,12 +7,17 @@ import ProductExchangePolicy from '../views/ProductExchangePolicy.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import PaymentPolicy from '../views/PaymentPolicy.vue'
+import ShippingPolicy from '../views/ShippingPolicy.vue'
 import Payment from '../views/Payment.vue'
 import NewsDetails from '../views/NewsDetails.vue'
 import News from '../views/News.vue'
 import Contact from '../views/Contact.vue'
 import BuyGuideline from '../views/BuyGuideline.vue'
-import NotFound from '../views/NotFound.vue' // Import component cho trang 404
+import About from '../views/About.vue'
+import WarrantyPolicy from '../views/WarrantyPolicy.vue'
+import TermOfService from '../views/TermOfService.vue'
+import NotFound from '../views/NotFound.vue'
+import Stores from '../views/Stores.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +30,7 @@ const router = createRouter({
     {
       path: '/gioi-thieu',
       name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      component: About,
     },
     {
       path: '/dang-nhap',
@@ -38,9 +43,10 @@ const router = createRouter({
       component: Cart,
     },
     {
-      path: '/san-pham',
+      path: '/bo-suu-tap/:id',
       name: 'products',
       component: Products,
+      props: true,
     },
     {
       path: '/chinh-sach-doi-san-pham',
@@ -62,6 +68,16 @@ const router = createRouter({
       path: '/chinh-sach-thanh-toan',
       name: 'paymentPolicy',
       component: PaymentPolicy,
+    },
+    {
+      path: '/chinh-sach-van-chuyen',
+      name: 'ShippingPolicy',
+      component: ShippingPolicy,
+    },
+    {
+      path: '/dieu-khoan-dich-vu',
+      name: 'TermOfService',
+      component: TermOfService,
     },
     {
       path: '/thanh-toan',
@@ -90,7 +106,17 @@ const router = createRouter({
       component: BuyGuideline,
     },
     {
-      path: '/:catchAll(.*)', // Bắt mọi đường dẫn không khớp
+      path: '/cua-hang',
+      name: 'Stores',
+      component: Stores,
+    },
+    {
+      path: '/chinh-sach-bao-hanh',
+      name: 'WarrantyPolicy',
+      component: WarrantyPolicy,
+    },
+    {
+      path: '/:catchAll(.*)',
       name: 'NotFound',
       component: NotFound,
     },
