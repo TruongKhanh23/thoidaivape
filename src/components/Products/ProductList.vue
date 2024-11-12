@@ -1,7 +1,7 @@
 <template>
   <div class="py-4">
     <p class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 grid-cols-2 sm:grid-cols-4">
       <div
         v-for="product in products"
         :key="product.id"
@@ -23,13 +23,15 @@
           <!-- Mô tả ngắn -->
           <p class="text-gray-500 text-sm mb-2 truncate">{{ product.description }}</p>
 
-          <!-- Giá tiền -->
-          <p class="text-gray-400 line-through mb-1">{{ formatCurrency(product.price) }}</p>
+          <div class="flex flex-row space-x-4 items-center justify-center">
+            <!-- Giá ưu đãi -->
+            <p class="font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
+              {{ formatCurrency(product.discountedPrice) }}
+            </p>
 
-          <!-- Giá ưu đãi -->
-          <p class="text-lg font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
-            {{ formatCurrency(product.discountedPrice) }}
-          </p>
+            <!-- Giá tiền -->
+            <p class="text-gray-400 line-through">{{ formatCurrency(product.price) }}</p>
+          </div>
 
           <!-- Số lượng đã bán -->
           <p class="text-sm text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
@@ -53,6 +55,7 @@ export default {
   },
   setup() {
     const router = useRouter()
+    const isMobile = ref(window.innerWidth < 1024)
 
     // Danh sách các gradient màu đẹp
     const gradients = [
@@ -133,6 +136,8 @@ export default {
         sold: 40,
       },
     ])
+
+    products.value = isMobile ? products.value.slice(0, 4) : products.value;
 
     // Hàm để lấy gradient ngẫu nhiên
     const getRandomGradient = () => {
