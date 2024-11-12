@@ -12,14 +12,14 @@
         <div
           v-if="collection.image"
           :style="{ backgroundImage: `url(${collection.image})` }"
-          class="bg-cover bg-center h-40 sm:h-60 flex items-center justify-center text-white text-4xl font-bold"
+          class="bg-cover bg-center h-40 sm:h-60 flex items-center justify-center text-white text-xl md:text-4xl font-bold"
         >
           <span class="bg-black bg-opacity-50 p-2 rounded uppercase">{{ collection.name }}</span>
         </div>
         <div
           v-else
           :style="{ background: getRandomGradient() }"
-          class="h-40 sm:h-60 flex items-center justify-center text-white text-4xl font-bold"
+          class="h-40 sm:h-60 flex items-center justify-center text-white text-xl md:text-4xl font-bold"
         >
           <span class="bg-opacity-50 p-2 rounded uppercase">{{ collection.name }}</span>
         </div>
@@ -38,14 +38,14 @@
         <div
           v-if="collection.image"
           :style="{ backgroundImage: `url(${collection.image})` }"
-          class="bg-cover bg-center h-40 sm:h-60 flex items-center justify-center text-white text-4xl font-bold"
+          class="bg-cover bg-center h-40 sm:h-60 flex items-center justify-center text-white text-xl md:text-4xl font-bold"
         >
           <span class="bg-opacity-50 p-2 rounded uppercase">{{ collection.name }}</span>
         </div>
         <div
           v-else
           :style="{ background: getRandomGradient() }"
-          class="h-40 sm:h-60 flex items-center justify-center text-white text-4xl font-bold"
+          class="h-40 sm:h-60 flex items-center justify-center text-white text-xl md:text-4xl font-bold"
         >
           <span class="bg-opacity-50 p-2 rounded uppercase">{{ collection.name }}</span>
         </div>
