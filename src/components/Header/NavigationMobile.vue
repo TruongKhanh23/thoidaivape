@@ -98,7 +98,9 @@ function toggleSubMenu(item) {
 
 function navigateTo(item) {
   closeNavigation()
-  router.push({ name: item.view, params: { id: item.path } })
+  router.push({ name: item.view, params: { id: item.path } }).then(() => {
+    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+  })
 }
 
 // Đóng modal và phát sự kiện close để thông báo cho component cha

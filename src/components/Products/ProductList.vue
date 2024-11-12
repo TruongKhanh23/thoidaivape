@@ -38,6 +38,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Nút Xem Thêm -->
+    <div class="text-center mt-8">
+      <button
+        @click="goToProductsPage(title)"
+        class="bg-[#797a7d] text-white py-2 px-6 rounded hover:bg-black"
+      >
+        Xem thêm
+      </button>
+    </div>
   </div>
 </template>
 
@@ -57,7 +67,6 @@ export default {
     const router = useRouter()
     const isMobile = ref(window.innerWidth < 1024)
 
-    // Danh sách các gradient màu đẹp
     const gradients = [
       'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
       'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
@@ -69,7 +78,6 @@ export default {
       'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
     ]
 
-    // Dummy data cho danh sách sản phẩm
     const products = ref([
       {
         id: 1,
@@ -137,19 +145,24 @@ export default {
       },
     ])
 
-    products.value = isMobile ? products.value.slice(0, 4) : products.value;
+    products.value = isMobile ? products.value.slice(0, 4) : products.value
 
-    // Hàm để lấy gradient ngẫu nhiên
     const getRandomGradient = () => {
       return gradients[Math.floor(Math.random() * gradients.length)]
     }
 
-    // Điều hướng đến trang chi tiết sản phẩm
     const goToProductDetails = (id) => {
-      router.push({ name: 'productDetails', params: { id } })
+      router.push({ name: 'productDetails', params: { id } }).then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
     }
 
-    // Định dạng giá tiền
+    const goToProductsPage = (id) => {
+      router.push({ name: 'products', params: { id } }).then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
+    }
+
     const formatCurrency = (amount) => {
       return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -161,6 +174,7 @@ export default {
       products,
       getRandomGradient,
       goToProductDetails,
+      goToProductsPage,
       formatCurrency,
     }
   },
