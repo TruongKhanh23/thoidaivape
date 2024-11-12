@@ -6,7 +6,7 @@
     <!-- Hình sản phẩm -->
     <div
       :style="{ background: product.image || getRandomGradient() }"
-      class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
+      class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center px-4"
     >
       <span v-if="!product.image">{{ product.name }}</span>
     </div>
@@ -17,8 +17,8 @@
         {{ product.name }}
       </h3>
 
-      <div class="text-sm md:text-lg">
-        <p class="text-gray-500 mb-2 truncate min-h-[1.5rem]">
+      <div class="text-xs md:text-lg">
+        <p class="text-gray-500 mb-0 sm:mb-2 truncate min-h-[1.5rem]">
           {{ product.description }}
         </p>
 
