@@ -11,30 +11,40 @@
         <!-- Hình sản phẩm -->
         <div
           :style="{ background: product.image || getRandomGradient() }"
-          class="h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
+          class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
         >
           <span v-if="!product.image">{{ product.name }}</span>
         </div>
 
         <div class="p-4 pt-0">
           <!-- Tên sản phẩm -->
-          <h3 class="text-lg font-semibold mb-2 truncate">{{ product.name }}</h3>
+          <h3 class="text-sm sm:text-lg font-semibold line-clamp-3 min-h-[3rem] sm:min-h-[3.5rem]">
+            {{ product.name }}
+          </h3>
 
-          <!-- Mô tả ngắn -->
-          <p class="text-gray-500 text-sm mb-2 truncate">{{ product.description }}</p>
-
-          <div class="flex flex-row space-x-4 items-center justify-center">
-            <!-- Giá ưu đãi -->
-            <p class="font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
-              {{ formatCurrency(product.discountedPrice) }}
+          <div class="text-sm md:text-lg">
+            <p class="text-gray-500 mb-2 truncate min-h-[1.5rem]">
+              {{ product.description }}
             </p>
 
-            <!-- Giá tiền -->
-            <p class="text-gray-400 line-through">{{ formatCurrency(product.price) }}</p>
-          </div>
+            <div class="flex flex-row space-x-2 items-center justify-center px-4 md:px-0">
+              <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
+                {{ formatCurrency(product.discountedPrice) }}
+              </p>
 
-          <!-- Số lượng đã bán -->
-          <p class="text-sm text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
+              <p
+                :class="
+                  product.discountedPrice
+                    ? 'text-gray-400 line-through'
+                    : 'font-bold text-[#F13D55]'
+                "
+              >
+                {{ formatCurrency(product.price) }}
+              </p>
+            </div>
+
+            <p class="text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -92,7 +102,6 @@ export default {
         name: 'Pod System Alpha',
         description: 'Pod system nhỏ gọn, dễ mang theo',
         price: 750000,
-        discountedPrice: 650000,
         sold: 80,
       },
       {
