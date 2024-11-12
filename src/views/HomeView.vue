@@ -5,11 +5,7 @@
     >
       <Slider />
       <ProductList :title="'Ultra Sale'" />
-      <p
-        class="flex items-center justify-center min-h-[10vh] border border-[#000000] w-full rounded-lg"
-      >
-        Danh mục sản phẩm nổi bật
-      </p>
+      <ProductCollections />
       <ProductList :title="'Pod 1 lần'" />
       <ProductList :title="'Tinh dầu Salt Nicotine'" />
       <p
@@ -38,7 +34,8 @@
 </template>
 
 <script setup>
-import ProductList from '@/components/Products/ProductList.vue';
+import ProductCollections from '@/components/Products/ProductCollections.vue'
+import ProductList from '@/components/Products/ProductList.vue'
 import Slider from '@/components/Slider.vue'
 import VuexSample from '@/components/VuexSample.vue'
 </script>
