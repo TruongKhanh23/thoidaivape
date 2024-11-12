@@ -10,7 +10,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 function goHome() {
-  router.push('/')
+  router.push('/').then(() => {
+    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+  })
 }
 </script>
 

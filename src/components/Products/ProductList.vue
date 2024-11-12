@@ -1,7 +1,7 @@
 <template>
   <div class="py-4">
     <p class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 grid-cols-2 sm:grid-cols-4">
       <div
         v-for="product in products"
         :key="product.id"
@@ -23,18 +23,30 @@
           <!-- Mô tả ngắn -->
           <p class="text-gray-500 text-sm mb-2 truncate">{{ product.description }}</p>
 
-          <!-- Giá tiền -->
-          <p class="text-gray-400 line-through mb-1">{{ formatCurrency(product.price) }}</p>
+          <div class="flex flex-row space-x-4 items-center justify-center">
+            <!-- Giá ưu đãi -->
+            <p class="font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
+              {{ formatCurrency(product.discountedPrice) }}
+            </p>
 
-          <!-- Giá ưu đãi -->
-          <p class="text-lg font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
-            {{ formatCurrency(product.discountedPrice) }}
-          </p>
+            <!-- Giá tiền -->
+            <p class="text-gray-400 line-through">{{ formatCurrency(product.price) }}</p>
+          </div>
 
           <!-- Số lượng đã bán -->
           <p class="text-sm text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
         </div>
       </div>
+    </div>
+
+    <!-- Nút Xem Thêm -->
+    <div class="text-center mt-8">
+      <button
+        @click="goToProductsPage(title)"
+        class="bg-[#797a7d] text-white py-2 px-6 rounded hover:bg-black"
+      >
+        Xem thêm
+      </button>
     </div>
   </div>
 </template>
@@ -53,8 +65,8 @@ export default {
   },
   setup() {
     const router = useRouter()
+    const isMobile = ref(window.innerWidth < 1024)
 
-    // Danh sách các gradient màu đẹp
     const gradients = [
       'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
       'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
@@ -66,7 +78,6 @@ export default {
       'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
     ]
 
-    // Dummy data cho danh sách sản phẩm
     const products = ref([
       {
         id: 1,
@@ -134,17 +145,24 @@ export default {
       },
     ])
 
-    // Hàm để lấy gradient ngẫu nhiên
+    products.value = isMobile ? products.value.slice(0, 4) : products.value
+
     const getRandomGradient = () => {
       return gradients[Math.floor(Math.random() * gradients.length)]
     }
 
-    // Điều hướng đến trang chi tiết sản phẩm
     const goToProductDetails = (id) => {
-      router.push({ name: 'productDetails', params: { id } })
+      router.push({ name: 'productDetails', params: { id } }).then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
     }
 
-    // Định dạng giá tiền
+    const goToProductsPage = (id) => {
+      router.push({ name: 'products', params: { id } }).then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
+    }
+
     const formatCurrency = (amount) => {
       return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -156,6 +174,7 @@ export default {
       products,
       getRandomGradient,
       goToProductDetails,
+      goToProductsPage,
       formatCurrency,
     }
   },

@@ -57,6 +57,8 @@ function closeSearch() {
 }
 
 function navigateTo(view) {
-  router.push({ name: view })
+  router.push({ name: view }).then(() => {
+    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+  })
 }
 </script>
