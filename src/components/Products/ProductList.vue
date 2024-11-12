@@ -2,41 +2,13 @@
   <div class="py-4">
     <p class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
     <div class="grid gap-4 grid-cols-2 sm:grid-cols-4">
-      <div
+      <ProductCard
         v-for="product in products"
         :key="product.id"
-        class="bg-white rounded-lg shadow-lg cursor-pointer text-center"
-        @click="goToProductDetails(product.id)"
-      >
-        <!-- Hình sản phẩm -->
-        <div
-          :style="{ background: product.image || getRandomGradient() }"
-          class="h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
-        >
-          <span v-if="!product.image">{{ product.name }}</span>
-        </div>
-
-        <div class="p-4 pt-0">
-          <!-- Tên sản phẩm -->
-          <h3 class="text-lg font-semibold mb-2 truncate">{{ product.name }}</h3>
-
-          <!-- Mô tả ngắn -->
-          <p class="text-gray-500 text-sm mb-2 truncate">{{ product.description }}</p>
-
-          <div class="flex flex-row space-x-4 items-center justify-center">
-            <!-- Giá ưu đãi -->
-            <p class="font-bold" :style="{ color: 'rgb(241, 61, 86)' }">
-              {{ formatCurrency(product.discountedPrice) }}
-            </p>
-
-            <!-- Giá tiền -->
-            <p class="text-gray-400 line-through">{{ formatCurrency(product.price) }}</p>
-          </div>
-
-          <!-- Số lượng đã bán -->
-          <p class="text-sm text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
-        </div>
-      </div>
+        :product="product"
+        :formatCurrency="formatCurrency"
+        :getRandomGradient="getRandomGradient"
+      />
     </div>
 
     <!-- Nút Xem Thêm -->
@@ -54,9 +26,13 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import ProductCard from './ProductCard.vue'
 
 export default {
   name: 'ProductList',
+  components: {
+    ProductCard,
+  },
   props: {
     title: {
       type: String,
@@ -92,7 +68,6 @@ export default {
         name: 'Pod System Alpha',
         description: 'Pod system nhỏ gọn, dễ mang theo',
         price: 750000,
-        discountedPrice: 650000,
         sold: 80,
       },
       {
@@ -151,12 +126,6 @@ export default {
       return gradients[Math.floor(Math.random() * gradients.length)]
     }
 
-    const goToProductDetails = (id) => {
-      router.push({ name: 'productDetails', params: { id } }).then(() => {
-        window.scrollTo(0, 0) // Scroll to the top after navigating to home
-      })
-    }
-
     const goToProductsPage = (id) => {
       router.push({ name: 'products', params: { id } }).then(() => {
         window.scrollTo(0, 0) // Scroll to the top after navigating to home
@@ -173,7 +142,6 @@ export default {
     return {
       products,
       getRandomGradient,
-      goToProductDetails,
       goToProductsPage,
       formatCurrency,
     }
