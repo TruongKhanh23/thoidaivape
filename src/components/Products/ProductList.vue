@@ -4,13 +4,13 @@
         <div
           v-for="product in products"
           :key="product.id"
-          class="bg-white rounded-lg shadow-lg p-4 cursor-pointer"
+          class="bg-white rounded-lg shadow-lg p-4 cursor-pointer text-center"
           @click="goToProductDetails(product.id)"
         >
           <!-- Hình sản phẩm -->
           <div
-            :style="{ background: product.image || 'linear-gradient(135deg, #f3f4f6, #e5e7eb)' }"
-            class="h-40 w-full rounded-lg mb-4 flex items-center justify-center text-white text-2xl font-bold"
+            :style="{ background: product.image || getRandomGradient() }"
+            class="h-40 w-full rounded-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
           >
             <span v-if="!product.image">{{ product.name }}</span>
           </div>
@@ -42,6 +42,18 @@
     name: "ProductList",
     setup() {
       const router = useRouter();
+  
+      // Danh sách các gradient màu đẹp
+      const gradients = [
+        "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+        "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
+        "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)",
+        "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)",
+        "linear-gradient(135deg, #fcb69f 0%, #ffeb3b 100%)",
+        "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
+        "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)",
+        "linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)"
+      ];
   
       // Dummy data cho danh sách sản phẩm
       const products = ref([
@@ -111,6 +123,11 @@
         },
       ]);
   
+      // Hàm để lấy gradient ngẫu nhiên
+      const getRandomGradient = () => {
+        return gradients[Math.floor(Math.random() * gradients.length)];
+      };
+  
       // Điều hướng đến trang chi tiết sản phẩm
       const goToProductDetails = (id) => {
         router.push({ name: "productDetails", params: { id } });
@@ -126,6 +143,7 @@
   
       return {
         products,
+        getRandomGradient,
         goToProductDetails,
         formatCurrency,
       };
