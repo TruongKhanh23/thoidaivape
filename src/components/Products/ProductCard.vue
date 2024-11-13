@@ -18,7 +18,7 @@
       </h3>
 
       <div class="text-xs md:text-lg">
-        <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem]">
+        <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem] sm:min-h-[3.5rem]">
           {{ product.description }}
         </p>
 
