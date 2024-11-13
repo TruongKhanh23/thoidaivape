@@ -8,9 +8,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import NewsCard from './NewsCard.vue'
 
-const newsList = [
+const isMobile = ref(window.innerWidth < 1024)
+const newsList = ref([
   {
     id: 1,
     image: '',
@@ -67,5 +69,6 @@ const newsList = [
     date: '2024-11-04',
     views: 432,
   },
-]
+])
+newsList.value = isMobile ? newsList.value.slice(0, 6) : newsList.value
 </script>

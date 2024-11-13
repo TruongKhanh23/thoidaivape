@@ -1,36 +1,35 @@
 <template>
   <div
-    class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
+    class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer flex flex-row lg:flex-col lg:h-auto"
     @click="navigateToDetails"
   >
     <!-- Phần hình ảnh hoặc màu gradient -->
-    <div class="relative">
+    <div
+      :class="[
+        news.image ? '' : randomGradient,
+        'h-30 sm:h-40 sm:w-full w-1/3 flex items-center justify-center text-white font-bold text-center',
+      ]"
+      @error="onImageError"
+    >
       <template v-if="news.image">
         <img
           :src="news.image"
           alt="News Image"
-          class="w-full h-32 object-cover rounded-t-lg lg:h-40"
+          class="w-full h-full object-cover rounded-t-lg lg:rounded-none lg:rounded-l-lg"
           @error="onImageError"
         />
       </template>
       <template v-else>
-        <div
-          :class="randomGradient"
-          class="w-full h-32 lg:h-40 rounded-t-lg flex items-center justify-center text-white font-bold"
-        >
-          No Image Available
-        </div>
+        <span>No Image Available</span>
       </template>
     </div>
 
     <!-- Phần chữ -->
-    <div class="p-4 flex flex-col lg:flex-row lg:space-x-4">
-      <div class="lg:w-full flex flex-col justify-between">
-        <h3 class="font-bold text-sm line-clamp-2 mb-2">{{ news.title }}</h3>
-        <div class="flex justify-between text-gray-500 text-sm">
-          <span>{{ news.date }}</span>
-          <span>{{ news.views }} views</span>
-        </div>
+    <div class="p-4 flex flex-col justify-between sm:w-full w-2/3">
+      <h3 class="font-bold text-sm line-clamp-2 mb-2">{{ news.title }}</h3>
+      <div class="flex justify-between text-gray-500 text-xs">
+        <span>{{ news.date }}</span>
+        <span>{{ news.views }} views</span>
       </div>
     </div>
   </div>
