@@ -1,7 +1,7 @@
 <template>
   <div class="py-4">
     <p class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
-    <div class="grid gap-4 grid-cols-2 sm:grid-cols-4">
+    <div class="grid gap-4 grid-cols-3 sm:grid-cols-4">
       <ProductCard
         v-for="product in products"
         :key="product.id"
@@ -120,7 +120,7 @@ export default {
       },
     ])
 
-    products.value = isMobile ? products.value.slice(0, 4) : products.value
+    products.value = isMobile ? products.value.slice(0, 6) : products.value
 
     const getRandomGradient = () => {
       return gradients[Math.floor(Math.random() * gradients.length)]
