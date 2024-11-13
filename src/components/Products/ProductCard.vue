@@ -13,7 +13,7 @@
 
     <div class="p-4 pt-0">
       <!-- Tên sản phẩm -->
-      <h3 class="text-sm sm:text-lg font-semibold line-clamp-3 min-h-[3rem] sm:min-h-[3.5rem]">
+      <h3 class="uppercase text-xs sm:text-lg font-semibold min-h-[3rem] sm:min-h-[3.5rem] line-clamp-2">
         {{ product.name }}
       </h3>
 
