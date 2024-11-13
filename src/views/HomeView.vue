@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import Banner from '@/components/Banner.vue'
+import Banner from '@/components/Banner/Banner.vue'
 import ProductCollections from '@/components/Products/ProductCollections.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Slider from '@/components/Slider.vue'
