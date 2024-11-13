@@ -8,11 +8,7 @@
       <ProductCollections />
       <ProductList :title="'Pod 1 lần'" />
       <ProductList :title="'Tinh dầu Salt Nicotine'" />
-      <p
-        class="flex items-center justify-center min-h-[10vh] border border-[#000000] w-full rounded-lg"
-      >
-        Chương trình giảm giá
-      </p>
+      <Banner />
       <ProductList :title="'Pod Mod'" />
       <p
         class="flex items-center justify-center min-h-[10vh] border border-[#000000] w-full rounded-lg"
@@ -30,6 +26,7 @@
 </template>
 
 <script setup>
+import Banner from '@/components/Banner.vue'
 import ProductCollections from '@/components/Products/ProductCollections.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Slider from '@/components/Slider.vue'
