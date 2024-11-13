@@ -15,11 +15,7 @@
       >
         Mạng xã hội
       </p>
-      <p
-        class="flex items-center justify-center min-h-[10vh] border border-[#000000] w-full rounded-lg"
-      >
-        Tin tức nổi bật
-      </p>
+      <NewsList />
       <Warning />
     </div>
   </div>
@@ -27,6 +23,7 @@
 
 <script setup>
 import Banner from '@/components/Banner/Banner.vue'
+import NewsList from '@/components/News/NewsList.vue'
 import ProductCollections from '@/components/Products/ProductCollections.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Slider from '@/components/Slider.vue'
