@@ -17,22 +17,21 @@
         {{ product.name }}
       </h3>
 
-      <div class="text-[0.55rem] md:text-lg">
+      <div class="text-xs md:text-lg">
         <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem]">
           {{ product.description }}
         </p>
 
-        <div class="flex flex-row space-x-2 items-center justify-center px-4 md:px-0">
-          <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
-            {{ formatCurrency(product.discountedPrice) }}
-          </p>
-
+        <div class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:space-x-2 items-center justify-end sm:justify-center text-center px-4 md:px-0 min-h-[2.5rem]">
           <p
             :class="
               product.discountedPrice ? 'text-gray-400 line-through' : 'font-bold text-[#F13D55]'
             "
           >
             {{ formatCurrency(product.price) }}
+          </p>
+          <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
+            {{ formatCurrency(product.discountedPrice) }}
           </p>
         </div>
 
