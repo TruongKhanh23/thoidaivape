@@ -10,11 +10,7 @@
       <ProductList :title="'Tinh dầu Salt Nicotine'" />
       <Banner />
       <ProductList :title="'Pod Mod'" />
-      <p
-        class="flex items-center justify-center min-h-[10vh] border border-[#000000] w-full rounded-lg"
-      >
-        Mạng xã hội
-      </p>
+      <SocialNetworks />
       <NewsList />
       <Warning />
     </div>
@@ -27,6 +23,6 @@ import NewsList from '@/components/News/NewsList.vue'
 import ProductCollections from '@/components/Products/ProductCollections.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Slider from '@/components/Slider.vue'
-import VuexSample from '@/components/VuexSample.vue'
+import SocialNetworks from '@/components/SocialNetwork/SocialNetworks.vue'
 import Warning from '@/components/Warning.vue'
 </script>
