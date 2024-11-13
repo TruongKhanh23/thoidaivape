@@ -17,8 +17,8 @@
         {{ product.name }}
       </h3>
 
-      <div class="text-xs md:text-lg">
-        <p class="text-gray-500 mb-0 sm:mb-2 truncate min-h-[1.5rem]">
+      <div class="text-[0.55rem] md:text-lg">
+        <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem]">
           {{ product.description }}
         </p>
 
