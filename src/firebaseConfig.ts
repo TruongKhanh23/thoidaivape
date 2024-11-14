@@ -21,8 +21,8 @@ const firebaseConfig: FirebaseConfig =
   urlHostToConfigsMap[currentDomain] || urlHostToConfigsMap['localhost'] // Mặc định cho localhost nếu không khớp
 
 // Khởi tạo Firebase
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+const firebaseApp = initializeApp(firebaseConfig)
+const db = getFirestore(firebaseApp)
 
 // Xuất app và config
-export { app, db, firebaseConfig }
+export { firebaseApp, db, firebaseConfig }

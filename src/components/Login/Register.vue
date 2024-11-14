@@ -65,10 +65,52 @@
 
 <script setup>
 import { ref, defineEmits } from 'vue'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+const store = useStore()
 const emit = defineEmits(['action:updateLoginType'])
 
 const email = ref('')
 const password = ref('')
+const router = useRouter()
+
+const register = () => {
+  const auth = getAuth()
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((data) => {
+      console.log(auth.currentUser)
+      router.push('/').then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
+    })
+    .catch((error) => {
+      console.log(error.code)
+      alert(error.message)
+    })
+}
+
+const signInWithGoogle = () => {
+  const auth = getAuth()
+  const provider = new GoogleAuthProvider()
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      store.dispatch('setUser', result.user)
+      router.push('/').then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      })
+    })
+    .catch((error) => {
+      console.error('Error during Google sign-in:', error)
+      alert(error.message)
+    })
+}
 </script>
 
 <style scoped></style>

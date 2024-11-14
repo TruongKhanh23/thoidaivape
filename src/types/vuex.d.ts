@@ -4,3 +4,4 @@ declare module 'vuex' {
   export default VuexStore
   export function useStore<T = any>(key?: string): T
 }
+declare module 'vue3-toastify'
