@@ -11,32 +11,34 @@
       <span v-if="!product.image">{{ product.name }}</span>
     </div>
 
-    <div class="p-4 pt-0">
+    <div class="p-4 pt-0 text-xs sm:text-base">
       <!-- Tên sản phẩm -->
-      <h3 class="uppercase text-xs sm:text-lg font-semibold min-h-[3rem] sm:min-h-[3.5rem] line-clamp-3 mb-2 sm:mb-0">
+      <h3
+        class="uppercasebase font-semibold min-h-[3rem] sm:min-h-[3.5rem] line-clamp-3 mb-2 sm:mb-0"
+      >
         {{ product.name }}
       </h3>
 
-      <div class="text-xs md:text-lg">
-        <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem] sm:min-h-[3.5rem]">
-          {{ product.description }}
+      <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem] sm:min-h-[3rem]">
+        {{ product.description }}
+      </p>
+
+      <div
+        class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:space-x-2 items-center justify-end sm:justify-center text-center px-4 md:px-0 min-h-[2.5rem] sm:min-h-[2rem]"
+      >
+        <p
+          :class="
+            product.discountedPrice ? 'text-gray-400 line-through' : 'font-bold text-[#F13D55]'
+          "
+        >
+          {{ formatCurrency(product.price) }}
         </p>
-
-        <div class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:space-x-2 items-center justify-end sm:justify-center text-center px-4 md:px-0 min-h-[2.5rem]">
-          <p
-            :class="
-              product.discountedPrice ? 'text-gray-400 line-through' : 'font-bold text-[#F13D55]'
-            "
-          >
-            {{ formatCurrency(product.price) }}
-          </p>
-          <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
-            {{ formatCurrency(product.discountedPrice) }}
-          </p>
-        </div>
-
-        <p class="text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
+        <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
+          {{ formatCurrency(product.discountedPrice) }}
+        </p>
       </div>
+
+      <p class="text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
     </div>
   </div>
 </template>
