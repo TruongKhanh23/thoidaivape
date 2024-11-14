@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../views/Login.vue'
 import Cart from '../views/Cart.vue'
 import Products from '../views/Products.vue'
+import Account from '../views/Account.vue'
 import ProductExchangePolicy from '../views/ProductExchangePolicy.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/gioi-thieu',
       name: 'about',
       component: About,
+    },
+    {
+      path: '/tai-khoan',
+      name: 'account',
+      component: Account,
     },
     {
       path: '/dang-nhap',
