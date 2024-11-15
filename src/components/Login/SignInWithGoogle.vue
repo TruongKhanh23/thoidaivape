@@ -34,7 +34,7 @@ const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       store.dispatch('setUser', result.user)
-
+      store.dispatch('setIsLoggedIn', true)
       router.push('/').then(() => {
         window.scrollTo(0, 0) // Scroll to the top after navigating to home
       })

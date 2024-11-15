@@ -12,7 +12,7 @@
           <img :src="user.avatar" alt="Avatar" class="object-cover w-full h-full" />
         </template>
         <template v-else>
-          <i class="fas fa-user text-gray-400 text-6xl"></i>
+          <font-awesome-icon icon="user" class="text-gray-400 text-6xl" />
         </template>
       </div>
     </div>
@@ -42,7 +42,7 @@ const store = useStore()
 // Dữ liệu user mẫu
 const user = computed(() => {
   return {
-    avatar: store.getters.getUser.photoURL, // Đường dẫn ảnh avatar (để trống để hiển thị icon mặc định)
+    avatar: '', // Đường dẫn ảnh avatar (để trống để hiển thị icon mặc định)
     username: store.getters.getUser.email,
     name: store.getters.getUser.displayName,
     email: store.getters.getUser.email,

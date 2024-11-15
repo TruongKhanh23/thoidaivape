@@ -19,7 +19,7 @@
 
       <!-- Column 3: User and Cart Icons -->
       <div class="flex justify-end space-x-4">
-        <button @click="navigateTo('login')" class="p-2 text-xl">
+        <button @click="navigateToAccount()" class="p-2 text-xl">
           <font-awesome-icon icon="user" />
         </button>
         <IconCart @click="navigateTo('cart')" />
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import SearchMobile from './SearchMobile.vue'
 import Search from './Search.vue'
 import Logo from './Logo.vue'
@@ -38,13 +38,16 @@ import NavigationMobileIcon from './NavigationMobileIcon.vue'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons' // Import icon bars và times
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex' 
 
+const store = useStore()
 const router = useRouter()
 
 library.add(faBars, faTimes) // Thêm vào thư viện FontAwesome
 
 const isSearchVisible = ref(false)
 const isMobile = ref(window.innerWidth < 1024)
+const isLoggedIn = computed(() => store.getters.getIsLoggedIn)
 
 // Hàm mở tìm kiếm
 function openSearch() {
@@ -60,5 +63,18 @@ function navigateTo(view) {
   router.push({ name: view }).then(() => {
     window.scrollTo(0, 0) // Scroll to the top after navigating to home
   })
+}
+
+function navigateToAccount() {
+  if (isLoggedIn.value) {
+    router.push({ name: 'account' }).then(() => {
+      window.scrollTo(0, 0) // Scroll to the top after navigating to home
+    })  
+  }
+  else {
+    router.push({ name: 'login' }).then(() => {
+      window.scrollTo(0, 0) // Scroll to the top after navigating to home
+    })
+  }
 }
 </script>
