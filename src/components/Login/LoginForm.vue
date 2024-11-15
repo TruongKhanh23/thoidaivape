@@ -67,6 +67,7 @@ const login = async () => {
     const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value)
     console.log('userCredential', userCredential)
     store.dispatch('setUser', auth.currentUser)
+    store.dispatch('setIsLoggedIn', true)
 
     if (rememberMe.value) {
       localStorage.setItem('email', email.value)

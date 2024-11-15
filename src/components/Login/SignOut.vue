@@ -10,13 +10,14 @@
 import { ref, onMounted } from 'vue'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import router from '@/router'
+import { useStore } from "vuex"
 
 const isLoggedIn = ref(false)
 const user = ref({
   displayName: '',
   photoUrl: '',
 })
-const isPopupVisible = ref(false)
+const store = useStore()
 const auth = getAuth()
 
 onMounted(() => {
@@ -33,19 +34,11 @@ onMounted(() => {
 
 const handleSignOut = () => {
   signOut(auth).then(() => {
-    document.documentElement.classList.remove('dark')
-
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]')
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', '#ffffff')
-    }
-
-    router.push('/dang-nhap')
+    store.dispatch('setIsLoggedIn', false)
+    router.push('/').then(() => {
+        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+    })
   })
-}
-
-const togglePopup = () => {
-  isPopupVisible.value = !isPopupVisible.value
 }
 </script>
 
