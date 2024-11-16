@@ -1,20 +1,22 @@
 <template>
-  <div class="flex justify-center min-h-screen pt-2 pb-4 bg-[#Bdc1c6]">
-    <div
-      class="flex flex-col items-center justify-center space-y-4 w-[100%] md:w-[100%] lg:w-[60%] px-2"
-    >
-      <Slider />
-      <ProductList :title="'Ultra Sale'" />
-      <ProductCollections />
-      <ProductList :title="'Pod 1 lần'" />
-      <ProductList :title="'Tinh dầu Salt Nicotine'" />
-      <Banner />
-      <ProductList :title="'Pod Mod'" />
-      <SocialNetworks />
-      <NewsList />
-      <Warning />
+  <CLayout>
+    <div class="flex justify-center min-h-screen pt-2 pb-4">
+      <div
+        class="flex flex-col items-center justify-center space-y-4 w-[100%] md:w-[100%] lg:w-[60%] px-2"
+      >
+        <Slider />
+        <ProductList :title="'Ultra Sale'" />
+        <ProductCollections />
+        <ProductList :title="'Pod 1 lần'" />
+        <ProductList :title="'Tinh dầu Salt Nicotine'" />
+        <Banner />
+        <ProductList :title="'Pod Mod'" />
+        <SocialNetworks />
+        <NewsList />
+        <Warning />
+      </div>
     </div>
-  </div>
+  </CLayout>
 </template>
 
 <script setup>
