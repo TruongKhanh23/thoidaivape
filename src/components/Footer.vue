@@ -1,12 +1,12 @@
 <template>
-  <div class="footer bg-white text-black py-10 px-4">
+  <div class="footer bg-[#3c4043] text-white py-10 px-4">
     <div
       class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full md:w-full lg:w-[70%]"
     >
       <!-- Cột Logo -->
       <div class="flex justify-center sm:justify-start items-start mb-6 md:mb-0">
         <img
-          src="/img/logo_white.jfif"
+          src="/img/original_logo.png"
           alt="Logo"
           class="h-32 cursor-pointer"
           @click="navigateToHomePage"
@@ -43,22 +43,22 @@
       <div class="flex flex-col items-end">
         <h3 class="font-semibold uppercase mb-2">Nhận tin giảm giá sớm nhất</h3>
         <p class="mb-4">Để lại thông tin</p>
-        <div class="flex items-center border-b-2 border-black py-1 w-full mb-4">
+        <div class="flex items-center border-b-2 border-white py-1 w-full mb-4">
           <input
             type="email"
             placeholder="Email của bạn"
-            class="flex-1 bg-transparent focus:outline-none text-black placeholder-black"
+            class="flex-1 bg-transparent focus:outline-none text-white placeholder-white"
           />
-          <font-awesome-icon :icon="['fas', 'envelope']" class="ml-2 text-black text-xl" />
+          <font-awesome-icon :icon="['fas', 'envelope']" class="ml-2 text-white text-xl" />
         </div>
         <div class="flex gap-6 justify-end">
-          <a href="#" class="text-2xl hover:text-[#87d068] text-black">
+          <a href="#" class="text-2xl hover:text-[#87d068] text-white">
             <font-awesome-icon :icon="['fab', 'facebook']" />
           </a>
-          <a href="#" class="text-2xl hover:text-[#87d068] text-black">
+          <a href="#" class="text-2xl hover:text-[#87d068] text-white">
             <font-awesome-icon :icon="['fab', 'tiktok']" />
           </a>
-          <a href="#" class="text-2xl hover:text-[#87d068] text-black">
+          <a href="#" class="text-2xl hover:text-[#87d068] text-white">
             <font-awesome-icon :icon="['fab', 'whatsapp']" />
           </a>
         </div>

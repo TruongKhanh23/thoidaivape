@@ -44,14 +44,14 @@ export default {
     const isMobile = ref(window.innerWidth < 1024)
 
     const gradients = [
-      'linear-gradient(135deg, #f6d365 0%, #fda085 100%)',
-      'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
-      'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',
-      'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
-      'linear-gradient(135deg, #fcb69f 0%, #ffeb3b 100%)',
-      'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)',
-      'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
-      'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
+      'linear-gradient(135deg, #2e2e2e 0%, #4f4f4f 100%)', // Xám đậm sang xám nhạt
+      'linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%)', // Đen sang xám đen
+      'linear-gradient(135deg, #121212 0%, #2b2b2b 100%)', // Đen thuần sang xám tối
+      'linear-gradient(135deg, #1c1c1c 0%, #272727 100%)', // Đen mờ sang xám
+      'linear-gradient(135deg, #232526 0%, #414345 100%)', // Xanh đen nhạt sang đen xám
+      'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)', // Xanh đen đậm sang xanh đen tối
+      'linear-gradient(135deg, #0f0f0f 0%, #333333 100%)', // Đen thuần sang xám đậm
+      'linear-gradient(135deg, #191919 0%, #383838 100%)', // Xám đậm sang xám tối
     ]
 
     const products = ref([

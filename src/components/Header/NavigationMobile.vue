@@ -1,11 +1,11 @@
 <template>
   <div v-if="isOpen" class="fixed inset-0 z-50">
     <!-- Lớp mờ phía sau modal -->
-    <div class="absolute inset-0 bg-white opacity-50" @click="closeNavigation"></div>
+    <div class="absolute inset-0 bg-[#3c4043] opacity-50" @click="closeNavigation"></div>
 
     <!-- Navigation modal trượt từ trái ra -->
     <div
-      class="absolute top-0 left-0 h-full bg-white shadow-lg p-4 transition-transform duration-300 ease-out"
+      class="absolute top-0 left-0 h-full bg-[#3c4043] text-white shadow-lg p-4 transition-transform duration-300 ease-out"
       :class="{ 'translate-x-0': isOpen, '-translate-x-full': !isOpen }"
       style="width: 75vw"
     >
@@ -14,7 +14,7 @@
         <font-awesome-icon icon="times" />
       </button>
 
-      <hr class="text-black font-bold border border-black mb-4" />
+      <hr class="font-bold border border-white mb-4" />
       <!-- Nội dung Navigation -->
       <nav>
         <ul>
@@ -22,7 +22,7 @@
             <div class="flex flex-col items-start justify-between my-2 font-semibold pr-4">
               <a
                 @click="toggleSubMenu(item)"
-                class="text-black text-lg hover:text-green-500 flex items-center w-full uppercase"
+                class="text-lg hover:text-green-500 flex items-center w-full uppercase"
               >
                 <!-- Text menu item -->
                 <span>{{ item.name }}</span>
@@ -38,7 +38,7 @@
               <!-- SubMenu -->
               <ul v-if="item.subMenu && item.isOpen" class="ml-6 my-2 space-y-2 uppercase">
                 <li v-for="subItem in item.subMenu" :key="subItem.name">
-                  <a @click="navigateTo(subItem)" class="text-black hover:text-green-500">
+                  <a @click="navigateTo(subItem)" class="text-white hover:text-green-500">
                     {{ subItem.name }}
                   </a>
                 </li>
