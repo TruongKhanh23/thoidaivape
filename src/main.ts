@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import FontAwesomeIcon from './fontAwesome'
+import globalComponents from './plugins/globalComponents'
 
 import 'vue3-toastify/dist/index.css'
 import { toast } from 'vue3-toastify'
@@ -25,6 +26,7 @@ onAuthStateChanged(auth, (user) => {
     }
     const app = createApp(App)
     app.component('font-awesome-icon', FontAwesomeIcon)
+    app.use(globalComponents)
     app.use(router)
     app.use(store)
     app.mount('#app')

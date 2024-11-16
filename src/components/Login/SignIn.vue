@@ -1,13 +1,8 @@
 <template>
-  <div class="w-full max-w-md p-6 md:border rounded-3xl sm:shadow">
+  <div class="w-full max-w-md p-6 md:border rounded-3xl sm:shadow bg-white">
     <LoginForm @action:openResetPasswordModal="handleOpenResetPasswordModal" />
     <div class="text-sm font-medium text-center py-2 text-blue-700">Chưa có tài khoản?</div>
-    <button
-      class="w-full border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
-      @click="$emit('action:updateLoginType', 'register')"
-    >
-      Đăng ký
-    </button>
+    <CButton @click="$emit('action:updateLoginType', 'register')" variant="white">Đăng ký</CButton>
   </div>
   <ResetPasswordModal
     :isShow="showResetPasswordModal"
