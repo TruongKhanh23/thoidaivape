@@ -21,6 +21,7 @@
       Đăng nhập
     </button>
   </form>
+  <SignInWithGoogle @action:updateErrorMessage="handleErrorMessage" />
 </template>
 
 <script setup>
@@ -35,6 +36,7 @@ import PasswordInput from '@/components/Login/PasswordInput.vue'
 import RememberMeCheckbox from '@/components/Login/RememberMeCheckbox.vue'
 import ForgotPasswordLink from '@/components/Login/ForgotPasswordLink.vue'
 import LoadingModal from '@/components/reusable/LoadingModal.vue'
+import SignInWithGoogle from '@/components/Login/SignInWithGoogle.vue'
 
 const emit = defineEmits(['action:openResetPasswordModal'])
 
@@ -101,5 +103,9 @@ const login = async () => {
   } finally {
     isOpenLoadingModal.value = close()
   }
+}
+
+function handleErrorMessage(value) {
+  errorMessage.value = value
 }
 </script>

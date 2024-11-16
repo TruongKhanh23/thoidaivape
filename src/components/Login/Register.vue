@@ -32,6 +32,7 @@
           required
         />
       </div>
+      <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
       <button
         type="submit"
         class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -68,6 +69,7 @@ import { ref, defineEmits } from 'vue'
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth'
@@ -75,24 +77,46 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 const store = useStore()
+const router = useRouter()
+
 const emit = defineEmits(['action:updateLoginType'])
 
 const email = ref('')
 const password = ref('')
-const router = useRouter()
+const errorMessage = ref('')
 
 const register = () => {
   const auth = getAuth()
   createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then((data) => {
-      console.log(auth.currentUser)
+    .then(() => {
+      // Đăng nhập ngay sau khi tạo tài khoản
+      signInWithEmailAndPassword(auth, email.value, password.value)
+      store.dispatch('setIsLoggedIn', true)
+      store.dispatch('setUser', auth.currentUser)
+
       router.push('/').then(() => {
         window.scrollTo(0, 0) // Scroll to the top after navigating to home
       })
     })
     .catch((error) => {
+      // Bắt lỗi và hiển thị thông báo lỗi bằng tiếng Việt
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          errorMessage.value = 'Email này đã được sử dụng. Vui lòng chọn email khác.'
+          break
+        case 'auth/invalid-email':
+          errorMessage.value = 'Email không hợp lệ. Vui lòng kiểm tra lại.'
+          break
+        case 'auth/weak-password':
+          errorMessage.value = 'Mật khẩu quá yếu. Mật khẩu phải có ít nhất 6 ký tự.'
+          break
+        case 'auth/operation-not-allowed':
+          errorMessage.value = 'Đăng ký không thành công. Vui lòng thử lại sau.'
+          break
+        default:
+          errorMessage.value = 'Đã xảy ra lỗi. Vui lòng thử lại.'
+      }
       console.log(error.code)
-      alert(error.message)
     })
 }
 
@@ -107,8 +131,21 @@ const signInWithGoogle = () => {
       })
     })
     .catch((error) => {
+      // Bắt lỗi và hiển thị thông báo lỗi bằng tiếng Việt
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          errorMessage.value = 'Bạn đã đóng cửa sổ đăng nhập Google trước khi hoàn tất.'
+          break
+        case 'auth/cancelled-popup-request':
+          errorMessage.value = 'Đã có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại.'
+          break
+        case 'auth/network-request-failed':
+          errorMessage.value = 'Lỗi kết nối mạng. Vui lòng kiểm tra lại kết nối.'
+          break
+        default:
+          errorMessage.value = 'Đã xảy ra lỗi khi đăng nhập bằng Google. Vui lòng thử lại.'
+      }
       console.error('Error during Google sign-in:', error)
-      alert(error.message)
     })
 }
 </script>
