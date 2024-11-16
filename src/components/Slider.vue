@@ -35,7 +35,7 @@ export default {
     // Danh sách các slide với màu gradient ngẫu nhiên
     const slides = ref([
       {
-        color: 'linear-gradient(135deg, #9e9e9e, #bdbdbd)', // Màu xám
+        color: 'linear-gradient(135deg, #000000, #3e2723)', // Màu xám
         path: '/bo-suu-tap/vape-box',
         label: 'Quảng Cáo 1',
       },

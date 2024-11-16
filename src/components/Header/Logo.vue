@@ -1,6 +1,6 @@
 <template>
   <div @click="goHome" class="cursor-pointer">
-    <img src="/img/logo_white.jfif" alt="Logo" class="w-16 lg:w-16 h-auto" />
+    <img src="/img/original_logo.png" alt="Logo" class="h-20 w-20" />
   </div>
 </template>
 

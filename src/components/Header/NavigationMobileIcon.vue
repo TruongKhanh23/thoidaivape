@@ -2,7 +2,7 @@
   <NavigationMobile :isOpen="isNavOpen" @close="closeNavigation" />
   <!-- Search và icon navigation cho mobile -->
   <button @click="toggleNavigation" class="p-2 text-xl sm:hidden">
-    <font-awesome-icon :icon="isNavOpen ? 'times' : 'bars'" />
+    <font-awesome-icon :icon="isNavOpen ? 'times' : 'bars'" class="text-white" />
   </button>
 </template>
 <script setup>
