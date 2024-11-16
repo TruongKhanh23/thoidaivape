@@ -84,16 +84,16 @@ const login = async () => {
     console.log('error code', error.code)
     switch (error.code) {
       case 'auth/invalid-email':
-        errorMessage.value = 'Invalid Email'
+        errorMessage.value = 'Email không hợp lệ'
         break
       case 'auth/user-not-found':
-        errorMessage.value = 'No account with that email was found'
+        errorMessage.value = 'Không tìm thấy tài khoản với email này'
         break
       case 'auth/wrong-password':
-        errorMessage.value = 'Incorrect password'
+        errorMessage.value = 'Sai mật khẩu'
         break
       default:
-        errorMessage.value = 'Email or password was incorrect'
+        errorMessage.value = 'Email hoặc mật khẩu không chính xác'
         break
     }
   } finally {
