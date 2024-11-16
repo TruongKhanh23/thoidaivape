@@ -7,19 +7,14 @@
         THỜI ĐẠI VAPE
       </h5>
     </div>
-    <EmailInput v-model="email" />
-    <PasswordInput v-model="password" />
-    <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+    <Email v-model="email" />
+    <Password v-model="password" />
+    <ErrorMessage :message="errorMessage" />
     <div class="flex items-start">
       <RememberMeCheckbox v-model="rememberMe" />
       <ForgotPasswordLink @click="$emit('action:openResetPasswordModal', true)" />
     </div>
-    <button
-      type="submit"
-      class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
-    >
-      Đăng nhập
-    </button>
+    <CButton type="submit">Đăng nhập</CButton>
   </form>
   <SignInWithGoogle @action:updateErrorMessage="handleErrorMessage" />
 </template>
@@ -31,12 +26,13 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { open, close } from '@/composables/loadingModal/index.js'
 
-import EmailInput from '@/components/Login/EmailInput.vue'
-import PasswordInput from '@/components/Login/PasswordInput.vue'
+import Email from '@/components/Login/Email.vue'
+import Password from '@/components/Login/Password.vue'
 import RememberMeCheckbox from '@/components/Login/RememberMeCheckbox.vue'
 import ForgotPasswordLink from '@/components/Login/ForgotPasswordLink.vue'
 import LoadingModal from '@/components/reusable/LoadingModal.vue'
 import SignInWithGoogle from '@/components/Login/SignInWithGoogle.vue'
+import ErrorMessage from '@/components/Login/ErrorMessage.vue'
 
 const emit = defineEmits(['action:openResetPasswordModal'])
 

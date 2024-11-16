@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-md p-6 md:border rounded-3xl sm:shadow">
+  <div class="w-full max-w-md p-6 md:border rounded-3xl sm:shadow bg-white">
     <form class="space-y-6" @submit.prevent="register">
       <div class="flex flex-col items-center justify-center">
         <h5 class="text-xl font-medium !text-center">
@@ -7,59 +7,24 @@
           THỜI ĐẠI VAPE
         </h5>
       </div>
-
-      <div>
-        <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          placeholder="name@company.com"
-          v-model="email"
-          required
-        />
-      </div>
-      <div>
-        <label for="password" class="block mb-2 text-sm font-medium">Mật khẩu</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="••••••••"
-          v-model="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          required
-        />
-      </div>
-      <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
-      <button
-        type="submit"
-        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Đăng ký
-      </button>
+      <Email v-model="email" />
+      <Password v-model="password" />
+      <ErrorMessage :message="errorMessage" />
+      <CButton type="submit">Đăng ký</CButton>
     </form>
     <div class="mt-4 space-y-2">
       <p class="text-center">hoặc đăng nhập nhanh bằng</p>
-      <button
-        type="button"
-        class="w-full border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center"
-        @click="signInWithGoogle"
-      >
+      <CButton variant="white" class="py-0" @click="signInWithGoogle">
         <div class="flex flex-row items-center justify-center">
           <img src="/google.svg" alt="Google logo" class="mr-2" /> Google
         </div>
-      </button>
+      </CButton>
       <div class="text-sm text-center font-medium text-blue-700 dark:text-blue-500">
         Đã có tài khoản?
       </div>
-      <button
-        class="w-full border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
-        @click="$emit('action:updateLoginType', 'signIn')"
-      >
+      <CButton variant="white" @click="$emit('action:updateLoginType', 'signIn')">
         Đăng nhập
-      </button>
+      </CButton>
     </div>
   </div>
 </template>
@@ -75,6 +40,10 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+
+import Email from '@/components/Login/Email.vue'
+import Password from '@/components/Login/Password.vue'
+import ErrorMessage from '@/components/Login/ErrorMessage.vue'
 
 const store = useStore()
 const router = useRouter()
