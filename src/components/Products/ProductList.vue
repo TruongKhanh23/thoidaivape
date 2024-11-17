@@ -65,7 +65,7 @@ export default {
 
     const products = computed(() => {
       const result = props.products ?? dummyProducts
-      return isMobile ? result.slice(0, 6) : result
+      return props.isHomePage ? result.slice(0, 6) : result
     })
 
     const getRandomGradient = () => {

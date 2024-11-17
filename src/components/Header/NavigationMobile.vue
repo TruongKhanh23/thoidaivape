@@ -68,18 +68,18 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const menuItems = reactive([
-  { name: 'Sale', path: 'sale', view: 'products' },
-  { name: 'Podsystem', path: 'podsystem', view: 'products' },
-  { name: 'Vape & Box', path: 'vape-box', view: 'products' },
-  { name: 'Saltnic', path: 'saltnic', view: 'products' },
-  { name: 'Freebase', path: 'freebase', view: 'products' },
+  { name: 'Sale', path: 'sale', view: 'collection' },
+  { name: 'Podsystem', path: 'podsystem', view: 'collection' },
+  { name: 'Vape & Box', path: 'vape-box', view: 'collection' },
+  { name: 'Saltnic', path: 'saltnic', view: 'collection' },
+  { name: 'Freebase', path: 'freebase', view: 'collection' },
   {
     name: 'Phụ kiện',
     path: 'phu-kien',
-    view: 'products',
+    view: 'collection',
     subMenu: [
-      { name: 'Đầu pod', path: 'dau-pod', view: 'products' },
-      { name: 'Occ & coil', path: 'occ-coil', view: 'products' },
+      { name: 'Đầu pod', path: 'dau-pod', view: 'collection' },
+      { name: 'Occ & coil', path: 'occ-coil', view: 'collection' },
     ],
     isHovered: false,
     isOpen: false, // Điều khiển việc mở subMenu

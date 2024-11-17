@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto px-4 py-6">
     <!-- Collection Information -->
-    <CollectionInformation :collectionInfo="collectionInfo" />
+    <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
 
     <div class="flex flex-col lg:flex-row gap-4">
       <!-- Sidebar Filters -->
@@ -18,6 +18,7 @@
         <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
         <ProductList :products="paginatedProducts" :title="productId" />
         <Pagination
+          class="pt-4"
           :totalItems="filteredProducts.length"
           :itemsPerPage="itemsPerPage"
           :currentPage="currentPage"
@@ -53,13 +54,12 @@ export default {
   setup() {
     const route = useRoute()
     const productId = computed(() => route.params.id)
-    // Sample products
     const products = ref(dummyProducts)
 
-    // Collection Info
+    // Thông tin collection
     const collectionInfo = ref(collectionInfoDummy)
 
-    // Filters
+    // Bộ lọc sản phẩm
     const filters = ref({
       brand: ['Brand A', 'Brand B', 'Brand C'],
       price: ['Dưới 500K', '500K - 1M', 'Trên 1M'],
@@ -77,7 +77,7 @@ export default {
     const sortOption = ref('newest') // Default sort by "newest"
 
     // Pagination
-    const itemsPerPage = ref(10)
+    const itemsPerPage = ref(28)
     const currentPage = ref(1)
 
     // Computed: Filtered products
@@ -149,19 +149,16 @@ export default {
       }
     })
 
-    // Paginated products
+    // Các sản phẩm phân trang
     const paginatedProducts = computed(() => {
       const start = (currentPage.value - 1) * itemsPerPage.value
       const end = start + itemsPerPage.value
-      console.log('paginatedProducts', sortedProducts.value.slice(start, end))
       return sortedProducts.value.slice(start, end)
     })
 
-    // Methods
     const applyFilters = (newFilters) => {
-      console.log(newFilters)
       selectedFilters.value = newFilters
-      currentPage.value = 1 // Reset to first page
+      currentPage.value = 1 // Đặt lại trang về trang đầu tiên
     }
 
     const sortProducts = (option) => {
@@ -173,6 +170,7 @@ export default {
     }
 
     return {
+      collectionInfoDummy,
       productId,
       collectionInfo,
       filters,
