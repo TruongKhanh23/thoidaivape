@@ -1,5 +1,7 @@
 <template>
-  <div class="flex justify-between items-center p-4 bg-gray-100 rounded-lg">
+  <div
+    class="flex flex-col sm:flex-row sm:space-y-0 space-y-2 justify-between items-center p-4 bg-gray-100 rounded-lg"
+  >
     <CText as="span" variant="body-2">Tổng sản phẩm: {{ totalProducts }}</CText>
     <div class="flex flex-row items-center space-x-2">
       <CText variant="body-1">Sắp xếp theo:</CText>

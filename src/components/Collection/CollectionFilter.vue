@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-4 p-4 border rounded-lg bg-gray-50">
     <div class="flex justify-between items-center" @click="toggleFilter">
-      <CText variant="body-1">BỘ LỌC SẢN PHẨM</CText>
+      <CText variant="subtitle">BỘ LỌC SẢN PHẨM</CText>
       <font-awesome-icon :icon="['fas', isOpen ? 'angle-up' : 'angle-down']" />
     </div>
 
@@ -11,9 +11,13 @@
         :key="filterKey"
         class="filter-section space-y-2"
       >
-        <CText variant="label" class="!text-left">{{ getFilterDisplayName(filterKey) }}</CText>
+        <CText variant="body-1" class="!text-left">{{ getFilterDisplayName(filterKey) }}</CText>
         <div>
-          <label v-for="option in options" :key="option" class="flex items-center space-x-2 w-fit">
+          <label
+            v-for="option in options"
+            :key="option"
+            class="flex items-center space-x-2 w-fit cursor-pointer"
+          >
             <input
               type="checkbox"
               :value="option"
