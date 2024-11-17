@@ -1,32 +1,34 @@
 <template>
-  <div class="container mx-auto px-4 py-6">
-    <!-- Collection Information -->
-    <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
+  <CLayout>
+    <div class="container mx-auto space-y-4">
+      <!-- Collection Information -->
+      <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
 
-    <div class="flex flex-col lg:flex-row gap-4">
-      <!-- Sidebar Filters -->
-      <div class="lg:w-1/4">
-        <CollectionFilter
-          :filters="filters"
-          :selectedFilters="selectedFilters"
-          @applyFilters="applyFilters"
-        />
-      </div>
+      <div class="flex flex-col lg:flex-row gap-4">
+        <!-- Sidebar Filters -->
+        <div class="lg:w-1/4">
+          <CollectionFilter
+            :filters="filters"
+            :selectedFilters="selectedFilters"
+            @applyFilters="applyFilters"
+          />
+        </div>
 
-      <!-- Main Content -->
-      <div class="lg:w-3/4 space-y-4">
-        <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
-        <ProductList :products="paginatedProducts" :title="productId" />
-        <Pagination
-          class="pt-4"
-          :totalItems="filteredProducts.length"
-          :itemsPerPage="itemsPerPage"
-          :currentPage="currentPage"
-          @changePage="changePage"
-        />
+        <!-- Main Content -->
+        <div class="lg:w-3/4 space-y-4">
+          <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
+          <ProductList :products="paginatedProducts" :title="productId" />
+          <Pagination
+            class="py-4"
+            :totalItems="filteredProducts.length"
+            :itemsPerPage="itemsPerPage"
+            :currentPage="currentPage"
+            @changePage="changePage"
+          />
+        </div>
       </div>
     </div>
-  </div>
+  </CLayout>
 </template>
 
 <script>

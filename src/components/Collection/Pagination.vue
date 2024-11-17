@@ -4,7 +4,7 @@
     <button
       @click="changePage(currentPage - 1)"
       :disabled="currentPage === 1"
-      class="px-3 py-1 border rounded-md"
+      class="px-3 py-1 border rounded-md cursor-pointer bg-white"
     >
       Trước
     </button>
@@ -16,8 +16,8 @@
         :key="page"
         @click="changePage(page)"
         :class="{
-          'bg-blue-500 text-white': currentPage === page,
-          'px-3 py-1 border rounded-md': true,
+          '!bg-black text-white': currentPage === page,
+          'px-3 py-1 border rounded-md bg-white': true,
         }"
       >
         {{ page }}
@@ -28,7 +28,7 @@
     <button
       @click="changePage(currentPage + 1)"
       :disabled="currentPage === totalPages"
-      class="px-3 py-1 border rounded-md"
+      class="px-3 py-1 border rounded-md cursor-pointer bg-white"
     >
       Sau
     </button>
@@ -77,6 +77,7 @@ export default {
     changePage(newPage) {
       if (newPage >= 1 && newPage <= this.totalPages) {
         this.$emit('changePage', newPage)
+        window.scrollTo(0, 0)
       }
     },
   },
