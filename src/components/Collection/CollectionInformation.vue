@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center mx-auto my-4 p-4 pt-8 pb-12 bg-white border border-gray-300 rounded-lg">
+  <div class="text-center mx-auto px-4 py-8 bg-white border border-gray-300 rounded-lg">
     <h1 class="text-3xl font-bold uppercase">{{ title }}</h1>
     <p v-if="!isMobile" class="mt-4 text-gray-600">
       {{ description }}

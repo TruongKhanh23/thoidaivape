@@ -35,7 +35,7 @@
       <!-- Apply Filters Button -->
       <button
         @click="applyFilters"
-        class="w-full px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
+        class="w-full px-4 py-2 text-white bg-black hover:bg-[#3c4043] rounded-md"
       >
         Áp dụng bộ lọc
       </button>
