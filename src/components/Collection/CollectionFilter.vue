@@ -1,14 +1,14 @@
 <template>
   <div class="space-y-4 p-4 border rounded-lg bg-gray-50">
     <div class="flex justify-between items-center" @click="toggleFilter">
-      <span class="font-bold">BỘ LỌC SẢN PHẨM</span>
+      <CText variant="body-1">BỘ LỌC SẢN PHẨM</CText>
       <font-awesome-icon :icon="['fas', isOpen ? 'angle-up' : 'angle-down']" />
     </div>
 
     <div v-if="isOpen" class="space-y-4">
       <!-- Brand Filter -->
-      <div v-if="filters.brand" class="filter-section">
-        <h3 class="text-sm font-semibold mb-2">Thương hiệu</h3>
+      <div v-if="filters.brand" class="filter-section space-y-2">
+        <CText variant="label" class="!text-left">Thương hiệu</CText>
         <div>
           <label
             v-for="brand in filters.brand"
@@ -28,8 +28,8 @@
       </div>
 
       <!-- Price Filter -->
-      <div v-if="filters.price" class="filter-section">
-        <h3 class="text-sm font-semibold mb-2">Giá</h3>
+      <div v-if="filters.price" class="filter-section space-y-2">
+        <CText variant="label" class="!text-left">Giá</CText>
         <div>
           <label v-for="price in filters.price" :key="price" class="flex items-center space-x-2">
             <input
