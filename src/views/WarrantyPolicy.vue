@@ -1,5 +1,7 @@
 <template>
-  <div class="flex justify-center bg-[#EAEBED] min-h-screen pt-2 pb-4">
-    <p>Warranty Policy</p>
-  </div>
+  <CLayout>
+    <div class="flex justify-center bg-[#EAEBED] min-h-screen pt-2 pb-4">
+      <p>WarrantyPolicy</p>
+    </div>
+  </CLayout>
 </template>
