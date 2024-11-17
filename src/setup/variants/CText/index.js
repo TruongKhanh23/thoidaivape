@@ -33,6 +33,17 @@ const variants = {
     },
   },
 
+  'body-2': {
+    el: {
+      color: defaultTextColor,
+      fontWeight: 'font-semibold',
+      fontStyle: 'normal',
+      textTransform: '',
+      fontSize: 'text-sm',
+      lineHeight: 'leading-relaxed',
+    },
+  },
+
   title: {
     el: {
       color: defaultTextColor,
@@ -60,6 +71,16 @@ const variants = {
       fontStyle: 'normal',
       textTransform: 'none',
       fontSize: 'text-xl',
+    },
+  },
+
+  'title-3': {
+    el: {
+      color: defaultTextColor,
+      fontWeight: 'font-bold',
+      fontStyle: 'uppercase',
+      textTransform: 'none',
+      fontSize: 'text-3xl',
     },
   },
 

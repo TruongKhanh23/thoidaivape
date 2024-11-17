@@ -31,6 +31,7 @@ const backgroundColors = {
   success: 'bg-green-500',
   danger: 'bg-red-500',
   white: 'bg-white',
+  'white-fit': 'bg-white',
 }
 
 const textColors = {
@@ -39,6 +40,7 @@ const textColors = {
   success: 'text-white',
   danger: 'text-white',
   white: 'text-black',
+  'white-fit': 'text-black',
 }
 
 const borders = {
@@ -47,6 +49,7 @@ const borders = {
   success: 'border border-green-500',
   danger: 'border border-red-500',
   white: 'border border-gray-300',
+  'white-fit': 'border border-gray-300',
 }
 
 const hoverEffects = {
@@ -55,9 +58,10 @@ const hoverEffects = {
   success: 'hover:bg-white hover:text-green-500',
   danger: 'hover:bg-white hover:text-red-500',
   white: 'hover:bg-gray-100 hover:text-black',
+  'white-fit': 'hover:bg-gray-100 hover:text-black !w-fit',
 }
 
-const defaultClasses = 'py-3 px-4 rounded-lg font-semibold transition-colors duration-300 w-full'
+const defaultClasses = 'py-2 px-4 rounded-lg font-semibold transition-colors duration-300 w-full'
 
 // Tính toán class cuối cùng
 const buttonClasses = computed(() => {

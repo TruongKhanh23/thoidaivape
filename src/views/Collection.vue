@@ -1,6 +1,6 @@
 <template>
   <CLayout>
-    <div class="container mx-auto space-y-4">
+    <div class="container mx-auto space-y-4 px-2 sm:px-0">
       <!-- Collection Information -->
       <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
 
