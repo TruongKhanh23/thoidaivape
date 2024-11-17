@@ -6,40 +6,22 @@
     </div>
 
     <div v-if="isOpen" class="space-y-4">
-      <!-- Brand Filter -->
-      <div v-if="filters.brand" class="filter-section space-y-2">
-        <CText variant="label" class="!text-left">Thương hiệu</CText>
+      <div
+        v-for="(options, filterKey) in filters"
+        :key="filterKey"
+        class="filter-section space-y-2"
+      >
+        <CText variant="label" class="!text-left">{{ getFilterDisplayName(filterKey) }}</CText>
         <div>
-          <label
-            v-for="brand in filters.brand"
-            :key="brand"
-            class="flex items-center space-x-2 w-fit"
-          >
+          <label v-for="option in options" :key="option" class="flex items-center space-x-2 w-fit">
             <input
               type="checkbox"
-              :value="brand"
-              v-model="selected.brand"
+              :value="option"
+              v-model="selected[filterKey]"
               @change="emitFilters"
               class="checkbox"
             />
-            <span>{{ brand }}</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Price Filter -->
-      <div v-if="filters.price" class="filter-section space-y-2">
-        <CText variant="label" class="!text-left">Giá</CText>
-        <div>
-          <label v-for="price in filters.price" :key="price" class="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              :value="price"
-              v-model="selected.price"
-              @change="emitFilters"
-              class="checkbox"
-            />
-            <span>{{ price }}</span>
+            <span>{{ option }}</span>
           </label>
         </div>
       </div>
@@ -47,43 +29,45 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script setup>
+import { ref, defineEmits } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { filterNames } from '@/assets/dummy/collection.js'
 
-export default {
-  name: 'CollectionFilter',
-  components: { FontAwesomeIcon },
-  props: {
-    filters: {
-      type: Object,
-      required: true,
-    },
-    selectedFilters: {
-      type: Object,
-      required: true,
-    },
+/** Props */
+const props = defineProps({
+  filters: {
+    type: Object,
+    required: true,
   },
-  data() {
-    return {
-      selected: JSON.parse(JSON.stringify(this.selectedFilters)), // Clone selectedFilters
-    }
+  selectedFilters: {
+    type: Object,
+    required: true,
   },
-  methods: {
-    emitFilters() {
-      this.$emit('applyFilters', this.selected) // Emit ngay khi checkbox thay đổi
-    },
-  },
-  setup() {
-    const isMobile = ref(window.innerWidth < 1024)
-    const isOpen = ref(isMobile.value ? false : true)
-    const toggleFilter = () => {
-      isOpen.value = !isOpen.value
-    }
-    return {
-      isOpen,
-      toggleFilter,
-    }
-  },
+})
+
+const emit = defineEmits(['applyFilters'])
+
+const selected = ref(JSON.parse(JSON.stringify(props.selectedFilters)))
+
+const isMobile = ref(window.innerWidth < 1024)
+const isOpen = ref(isMobile.value ? false : true)
+
+const toggleFilter = () => {
+  isOpen.value = !isOpen.value
+}
+
+const emitFilters = () => {
+  emit('applyFilters', selected.value)
+}
+
+const getFilterDisplayName = (key) => {
+  return filterNames[key] || key
 }
 </script>
+
+<style scoped>
+.checkbox {
+  accent-color: #2563eb; /* Tailwind Blue 500 */
+}
+</style>
