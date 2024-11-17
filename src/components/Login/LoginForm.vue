@@ -21,10 +21,10 @@
 
 <script setup>
 import { ref, onMounted, defineEmits } from 'vue'
-import { useStore } from 'vuex'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { open, close } from '@/composables/loadingModal/index.js'
+import { handleAuthenticationSuccess } from '@/composables/authentication/index'
 
 import Email from '@/components/Login/Email.vue'
 import Password from '@/components/Login/Password.vue'
@@ -36,7 +36,6 @@ import ErrorMessage from '@/components/Login/ErrorMessage.vue'
 
 const emit = defineEmits(['action:openResetPasswordModal'])
 
-const store = useStore()
 const router = useRouter()
 
 const email = ref('')
@@ -62,10 +61,7 @@ const login = async () => {
   const auth = getAuth()
 
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value)
-    console.log('userCredential', userCredential)
-    store.dispatch('setUser', auth.currentUser)
-    store.dispatch('setIsLoggedIn', true)
+    await signInWithEmailAndPassword(auth, email.value, password.value)
 
     if (rememberMe.value) {
       localStorage.setItem('email', email.value)
@@ -77,9 +73,7 @@ const login = async () => {
       localStorage.removeItem('rememberMe')
     }
 
-    router.push('/').then(() => {
-      window.scrollTo(0, 0) // Scroll to the top after navigating to home
-    })
+    handleAuthenticationSuccess(auth.currentUser, router)
   } catch (error) {
     console.log('error code', error.code)
     switch (error.code) {

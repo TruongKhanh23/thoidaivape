@@ -26,14 +26,13 @@
 import { ref, defineEmits } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { handleAuthenticationSuccess } from '@/composables/authentication/index'
 
 import Email from '@/components/Login/Email.vue'
 import Password from '@/components/Login/Password.vue'
 import ErrorMessage from '@/components/Login/ErrorMessage.vue'
 import SignInWithGoogle from '@/components/Login/SignInWithGoogle.vue'
 
-const store = useStore()
 const router = useRouter()
 
 const emit = defineEmits(['action:updateLoginType'])
@@ -48,12 +47,8 @@ const register = () => {
     .then(() => {
       // Đăng nhập ngay sau khi tạo tài khoản
       signInWithEmailAndPassword(auth, email.value, password.value)
-      store.dispatch('setIsLoggedIn', true)
-      store.dispatch('setUser', auth.currentUser)
 
-      router.push('/').then(() => {
-        window.scrollTo(0, 0) // Scroll to the top after navigating to home
-      })
+      handleAuthenticationSuccess(auth.currentUser, router)
     })
     .catch((error) => {
       // Bắt lỗi và hiển thị thông báo lỗi bằng tiếng Việt

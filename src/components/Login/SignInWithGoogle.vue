@@ -11,15 +11,14 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
 import { ref, defineEmits } from 'vue'
 import { useRouter } from 'vue-router'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { open, close } from '@/composables/loadingModal/index.js'
+import { handleAuthenticationSuccess } from '@/composables/authentication/index'
 
 import LoadingModal from '@/components/reusable/LoadingModal.vue'
 
-const store = useStore()
 const router = useRouter()
 
 const isOpenLoadingModal = ref(false)
@@ -33,11 +32,7 @@ const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider()
   signInWithPopup(auth, provider)
     .then((result) => {
-      store.dispatch('setUser', result.user)
-      store.dispatch('setIsLoggedIn', true)
-      router.push('/').then(() => {
-        window.scrollTo(0, 0) // Scroll to the top after navigating to home
-      })
+      handleAuthenticationSuccess(result.user, router)
     })
     .catch((error) => {
       switch (error.code) {
