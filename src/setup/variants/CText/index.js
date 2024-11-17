@@ -33,6 +33,17 @@ const variants = {
     },
   },
 
+  'body-2': {
+    el: {
+      color: defaultTextColor,
+      fontWeight: 'font-semibold',
+      fontStyle: 'normal',
+      textTransform: '',
+      fontSize: 'text-sm',
+      lineHeight: 'leading-relaxed',
+    },
+  },
+
   title: {
     el: {
       color: defaultTextColor,

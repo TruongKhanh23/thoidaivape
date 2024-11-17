@@ -1,37 +1,35 @@
 <template>
   <div class="flex justify-center items-center space-x-2">
     <!-- Previous button -->
-    <button
-      @click="changePage(currentPage - 1)"
-      :disabled="currentPage === 1"
-      class="px-3 py-1 border rounded-md cursor-pointer bg-white"
+    <CButton variant="white-fit" @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
+      >Trước</CButton
     >
-      Trước
-    </button>
 
     <!-- Page numbers -->
     <div class="flex items-center space-x-1">
-      <button
+      <CButton
         v-for="page in pageNumbers"
+        variant="white-fit"
+        :class="{
+          '!bg-black !text-white': currentPage === page,
+          '': true,
+        }"
         :key="page"
         @click="changePage(page)"
-        :class="{
-          '!bg-black text-white': currentPage === page,
-          'px-3 py-1 border rounded-md bg-white': true,
-        }"
       >
         {{ page }}
-      </button>
+      </CButton>
     </div>
 
     <!-- Next button -->
-    <button
+    <CButton
+      variant="white-fit"
       @click="changePage(currentPage + 1)"
       :disabled="currentPage === totalPages"
       class="px-3 py-1 border rounded-md cursor-pointer bg-white"
     >
       Sau
-    </button>
+    </CButton>
   </div>
 </template>
 

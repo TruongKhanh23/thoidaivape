@@ -21,7 +21,7 @@
               @change="emitFilters"
               class="checkbox"
             />
-            <span>{{ option }}</span>
+            <CText as="span">{{ option }}</CText>
           </label>
         </div>
       </div>
