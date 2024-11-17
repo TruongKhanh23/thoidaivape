@@ -1,16 +1,12 @@
 <template>
-  <div class="text-center mx-auto px-4 py-8 bg-white border border-gray-300 rounded-lg">
-    <h1 class="text-3xl font-bold uppercase">{{ title }}</h1>
-    <p v-if="!isMobile" class="mt-4 text-gray-600">
-      {{ description }}
-    </p>
-    <div v-else class="mt-4 text-gray-600">
-      <p :class="{ 'line-clamp-3': !showFull }">
-        {{ description }}
-      </p>
-      <button v-if="description?.length > 150" @click="toggleShowFull" class="text-blue-500 mt-2">
+  <div class="text-center mx-auto px-4 py-8 bg-white border border-gray-300 rounded-lg space-y-4">
+    <CText variant="title-3">{{ title }}</CText>
+    <CText v-if="!isMobile">{{ description }}</CText>
+    <div v-else class="space-y-4">
+      <CText :class="{ 'line-clamp-3': !showFull }">{{ description }}</CText>
+      <CText variant="btn" v-if="description?.length > 150" @click="toggleShowFull">
         {{ showFull ? 'Thu gọn' : 'Xem thêm' }}
-      </button>
+      </CText>
     </div>
   </div>
 </template>

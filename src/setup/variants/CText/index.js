@@ -63,6 +63,16 @@ const variants = {
     },
   },
 
+  'title-3': {
+    el: {
+      color: defaultTextColor,
+      fontWeight: 'font-bold',
+      fontStyle: 'uppercase',
+      textTransform: 'none',
+      fontSize: 'text-3xl',
+    },
+  },
+
   subtitle: {
     el: {
       color: defaultTextColor,
