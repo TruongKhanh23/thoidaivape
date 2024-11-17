@@ -1,36 +1,38 @@
 <template>
-  <div class="p-6 w-fit mx-auto bg-white rounded-lg shadow-md min-h-[50vh]">
-    <!-- Tiêu đề -->
-    <h2 class="text-2xl font-bold mb-6 text-center">Hồ sơ của tôi</h2>
+  <CLayout>
+    <div class="p-6 w-fit mx-auto bg-white rounded-lg shadow-md min-h-[50vh] space-y-4">
+      <!-- Tiêu đề -->
+      <CText variant="title">Hồ sơ của tôi</CText>
 
-    <!-- Avatar -->
-    <div class="flex justify-center">
-      <div
-        class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center"
-      >
-        <template v-if="user.avatar">
-          <img :src="user.avatar" alt="Avatar" class="object-cover w-full h-full" />
-        </template>
-        <template v-else>
-          <font-awesome-icon icon="user" class="text-gray-400 text-6xl" />
-        </template>
+      <!-- Avatar -->
+      <div class="flex justify-center">
+        <div
+          class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center"
+        >
+          <template v-if="user.avatar">
+            <img :src="user.avatar" alt="Avatar" class="object-cover w-full h-full" />
+          </template>
+          <template v-else>
+            <font-awesome-icon icon="user" class="text-gray-400 text-6xl" />
+          </template>
+        </div>
+      </div>
+
+      <SignOut />
+
+      <!-- Thông tin tài khoản -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
+        <CText variant="body-1" class="!text-left">Tên đăng nhập</CText>
+        <CText class="!text-left">{{ user.username }}</CText>
+
+        <CText variant="body-1" class="!text-left">Tên</CText>
+        <CText class="!text-left">{{ user.name }}</CText>
+
+        <CText variant="body-1" class="!text-left">Email</CText>
+        <CText class="!text-left">{{ user.email }}</CText>
       </div>
     </div>
-
-    <SignOut class="mb-6 mt-2" />
-
-    <!-- Thông tin tài khoản -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-      <div class="font-semibold text-gray-600">Tên đăng nhập</div>
-      <div>{{ user.username }}</div>
-
-      <div class="font-semibold text-gray-600">Tên</div>
-      <div>{{ user.name }}</div>
-
-      <div class="font-semibold text-gray-600">Email</div>
-      <div>{{ user.email }}</div>
-    </div>
-  </div>
+  </CLayout>
 </template>
 
 <script setup>

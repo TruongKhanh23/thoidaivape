@@ -2,10 +2,10 @@
   <div class="w-full max-w-md p-6 md:border rounded-3xl sm:shadow bg-white">
     <form class="space-y-6" @submit.prevent="register">
       <div class="flex flex-col items-center justify-center">
-        <h5 class="text-xl font-medium !text-center">
-          ĐĂNG KÝ <br />
-          THỜI ĐẠI VAPE
-        </h5>
+        <CText variant="title-uppercase">
+          Đăng ký <br />
+          Thời đại Vape
+        </CText>
       </div>
       <Email v-model="email" />
       <Password v-model="password" />
@@ -13,15 +13,8 @@
       <CButton type="submit">Đăng ký</CButton>
     </form>
     <div class="mt-4 space-y-2">
-      <p class="text-center">hoặc đăng nhập nhanh bằng</p>
-      <CButton variant="white" class="py-0" @click="signInWithGoogle">
-        <div class="flex flex-row items-center justify-center">
-          <img src="/google.svg" alt="Google logo" class="mr-2" /> Google
-        </div>
-      </CButton>
-      <div class="text-sm text-center font-medium text-blue-700 dark:text-blue-500">
-        Đã có tài khoản?
-      </div>
+      <SignInWithGoogle @action:updateErrorMessage="handleErrorMessage" />
+      <CText variant="body-1" class="!text-blue-700">Đã có tài khoản?</CText>
       <CButton variant="white" @click="$emit('action:updateLoginType', 'signIn')">
         Đăng nhập
       </CButton>
@@ -44,6 +37,7 @@ import { useStore } from 'vuex'
 import Email from '@/components/Login/Email.vue'
 import Password from '@/components/Login/Password.vue'
 import ErrorMessage from '@/components/Login/ErrorMessage.vue'
+import SignInWithGoogle from '@/components/Login/SignInWithGoogle.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -116,6 +110,10 @@ const signInWithGoogle = () => {
       }
       console.error('Error during Google sign-in:', error)
     })
+}
+
+function handleErrorMessage(value) {
+  errorMessage.value = value
 }
 </script>
 

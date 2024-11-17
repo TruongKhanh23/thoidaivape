@@ -1,8 +1,8 @@
 <template>
   <LoadingModal :isOpen="isOpenLoadingModal" />
   <div class="mt-4 space-y-2">
-    <p class="text-center">hoặc đăng nhập nhanh bằng</p>
-    <CButton variant="white" class="py-0" @click="signInWithGoogle">
+    <CText>hoặc đăng nhập nhanh bằng</CText>
+    <CButton variant="white" class="!py-0" @click="signInWithGoogle">
       <div class="flex flex-row items-center justify-center">
         <img src="/google.svg" alt="Google logo" class="mr-2" /> Google
       </div>
