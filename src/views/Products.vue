@@ -1,6 +1,6 @@
 <template>
   <CLayout>
-    <div class="flex justify-center bg-[#EAEBED] min-h-screen pt-2 pb-4">
+    <div class="flex justify-center min-h-screen">
       <p>Products: {{ productId }}</p>
     </div>
   </CLayout>

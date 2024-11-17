@@ -1,6 +1,6 @@
 <template>
-  <div class="py-4">
-    <p class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
+  <div class="w-full min-h-[50vh]">
+    <p v-if="isHomePage" class="text-center font-bold uppercase mb-8 text-2xl">{{ title }}</p>
     <div class="grid gap-4 grid-cols-3 sm:grid-cols-4">
       <ProductCard
         v-for="product in products"
@@ -12,7 +12,7 @@
     </div>
 
     <!-- Nút Xem Thêm -->
-    <div class="text-center mt-8">
+    <div v-if="isHomePage" class="text-center mt-8">
       <button
         @click="goToProductsPage(title)"
         class="bg-[#797a7d] text-white py-2 px-6 rounded hover:bg-black"
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import ProductCard from './ProductCard.vue'
+import { dummyProducts } from '@/assets/dummy/products.js'
 
 export default {
   name: 'ProductList',
@@ -38,8 +39,16 @@ export default {
       type: String,
       default: '',
     },
+    products: {
+      type: Array,
+      default: dummyProducts,
+    },
+    isHomePage: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup() {
+  setup(props) {
     const router = useRouter()
     const isMobile = ref(window.innerWidth < 1024)
 
@@ -54,80 +63,17 @@ export default {
       'linear-gradient(135deg, #191919 0%, #383838 100%)', // Xám đậm sang xám tối
     ]
 
-    const products = ref([
-      {
-        id: 1,
-        name: 'Vape Kit Pro',
-        description: 'Bộ sản phẩm Vape Kit chất lượng cao',
-        price: 1000000,
-        discountedPrice: 850000,
-        sold: 120,
-      },
-      {
-        id: 2,
-        name: 'Pod System Alpha',
-        description: 'Pod system nhỏ gọn, dễ mang theo',
-        price: 750000,
-        sold: 80,
-      },
-      {
-        id: 3,
-        name: 'Juice Vaping Hương Dâu',
-        description: 'Tinh dầu hương dâu cho trải nghiệm tuyệt vời',
-        price: 150000,
-        discountedPrice: 120000,
-        sold: 50,
-      },
-      {
-        id: 4,
-        name: 'Box Mod MaxPower',
-        description: 'Thiết bị Box Mod công suất cao',
-        price: 1800000,
-        discountedPrice: 1500000,
-        sold: 45,
-      },
-      {
-        id: 5,
-        name: 'Vape Pen Basic',
-        description: 'Bút vape nhỏ gọn, tiện dụng',
-        price: 500000,
-        discountedPrice: 450000,
-        sold: 70,
-      },
-      {
-        id: 6,
-        name: 'Juice Vaping Hương Táo',
-        description: 'Tinh dầu hương táo cho trải nghiệm sảng khoái',
-        price: 150000,
-        discountedPrice: 130000,
-        sold: 30,
-      },
-      {
-        id: 7,
-        name: 'Pod System Beta',
-        description: 'Thiết kế hiện đại, dễ sử dụng',
-        price: 800000,
-        discountedPrice: 700000,
-        sold: 90,
-      },
-      {
-        id: 8,
-        name: 'Box Mod SuperPro',
-        description: 'Box Mod cao cấp cho người chuyên nghiệp',
-        price: 2000000,
-        discountedPrice: 1800000,
-        sold: 40,
-      },
-    ])
-
-    products.value = isMobile ? products.value.slice(0, 6) : products.value
+    const products = computed(() => {
+      const result = props.products ?? dummyProducts
+      return props.isHomePage ? result.slice(0, 6) : result
+    })
 
     const getRandomGradient = () => {
       return gradients[Math.floor(Math.random() * gradients.length)]
     }
 
     const goToProductsPage = (id) => {
-      router.push({ name: 'products', params: { id } }).then(() => {
+      router.push({ name: 'collection', params: { id } }).then(() => {
         window.scrollTo(0, 0) // Scroll to the top after navigating to home
       })
     }
