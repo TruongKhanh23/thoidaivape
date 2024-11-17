@@ -1,8 +1,6 @@
 <template>
   <div v-if="isLoggedIn">
-    <div class="flex items-center cursor-pointer justify-center font-bold hover:underline">
-      <span @click="handleSignOut">Đăng xuất</span>
-    </div>
+    <CText variant="btn" @click="handleSignOut">Đăng xuất</CText>
   </div>
 </template>
 
@@ -10,7 +8,7 @@
 import { ref, onMounted } from 'vue'
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import router from '@/router'
-import { useStore } from "vuex"
+import { useStore } from 'vuex'
 
 const isLoggedIn = ref(false)
 const user = ref({
@@ -36,7 +34,7 @@ const handleSignOut = () => {
   signOut(auth).then(() => {
     store.dispatch('setIsLoggedIn', false)
     router.push('/').then(() => {
-        window.scrollTo(0, 0) // Scroll to the top after navigating to home
+      window.scrollTo(0, 0) // Scroll to the top after navigating to home
     })
   })
 }

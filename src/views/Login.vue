@@ -1,6 +1,6 @@
 <template>
   <CLayout>
-    <div class="flex items-center justify-center py-4">
+    <div class="flex items-center justify-center">
       <SignIn v-if="loginType === 'signIn'" @action:updateLoginType="handleUpdateLoginType" />
       <Register v-if="loginType === 'register'" @action:updateLoginType="handleUpdateLoginType" />
     </div>

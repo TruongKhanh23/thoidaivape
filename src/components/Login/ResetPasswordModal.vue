@@ -1,33 +1,35 @@
 <template>
   <div v-if="isShow" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-[90%]">
-      <h3 class="text-xl font-medium mb-4">Khôi phục mật khẩu</h3>
       <form @submit.prevent="resetPassword">
-        <div class="mb-4">
-          <label for="resetEmail" class="block text-sm font-medium">Nhập email của bạn</label>
-          <input
-            type="email"
-            id="resetEmail"
-            class="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-            placeholder="Ví dụ: thoidaivape.coffee@gmail.com"
-            v-model="resetEmail"
-            required
-          />
-        </div>
-        <div class="pb-4 font-semibold">
-          <p v-if="resetPasswordMessage" class="text-blue-500">
-            {{ resetPasswordMessage }}
-          </p>
-          <p v-if="resetPasswordError" class="text-red-500">
-            {{ resetPasswordError }}
-          </p>
-        </div>
+        <div class="space-y-2">
+          <CText variant="title-secondary">Khôi phục mật khẩu</CText>
+          <div>
+            <label for="resetEmail" class="block text-sm font-medium">Nhập email của bạn</label>
+            <input
+              type="email"
+              id="resetEmail"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+              placeholder="Ví dụ: thoidaivape.coffee@gmail.com"
+              v-model="resetEmail"
+              required
+            />
+          </div>
+          <div class="font-semibold">
+            <p v-if="resetPasswordMessage" class="text-blue-500">
+              {{ resetPasswordMessage }}
+            </p>
+            <p v-if="resetPasswordError" class="text-red-500">
+              {{ resetPasswordError }}
+            </p>
+          </div>
 
-        <div class="flex justify-end">
-          <button type="button" @click="$emit('action:closeModal', false)" class="mr-4">Hủy</button>
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
-            Gửi email khôi phục
-          </button>
+          <div class="flex justify-end space-x-2">
+            <CButton variant="white" class="!w-fit" @click="$emit('action:closeModal', false)"
+              >Hủy</CButton
+            >
+            <CButton type="submit" class="!w-fit">Gửi email khôi phục</CButton>
+          </div>
         </div>
       </form>
     </div>

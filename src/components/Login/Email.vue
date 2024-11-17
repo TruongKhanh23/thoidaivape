@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <label for="email" class="block mb-2 text-sm font-medium">Email</label>
+  <div class="space-y-2">
+    <CText variant="label" class="!text-left">Email</CText>
     <input
       type="email"
       name="email"

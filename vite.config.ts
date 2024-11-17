@@ -8,6 +8,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
   base: '/',
+  server: {
+    port: 5174, // Thay đổi thành cổng bạn muốn, ví dụ: 3001
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
