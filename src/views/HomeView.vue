@@ -5,12 +5,12 @@
         class="flex flex-col items-center justify-center space-y-4 w-[100%] md:w-[100%] lg:w-[60%] px-2"
       >
         <Slider />
-        <ProductList :title="'Ultra Sale'" />
+        <ProductList :isHomePage="true" :title="'Ultra Sale'" />
         <ProductCollections />
-        <ProductList :title="'Pod 1 lần'" />
-        <ProductList :title="'Tinh dầu Salt Nicotine'" />
+        <ProductList :isHomePage="true" :title="'Pod 1 lần'" />
+        <ProductList :isHomePage="true" :title="'Tinh dầu Salt Nicotine'" />
         <Banner />
-        <ProductList :title="'Pod Mod'" />
+        <ProductList :isHomePage="true" :title="'Pod Mod'" />
         <SocialNetworks />
         <NewsList />
         <Warning />

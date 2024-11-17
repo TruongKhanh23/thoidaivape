@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Login from '../views/Login.vue'
 import Cart from '../views/Cart.vue'
-import Products from '../views/Products.vue'
+import Collection from '../views/Collection.vue'
 import Account from '../views/Account.vue'
 import ProductExchangePolicy from '../views/ProductExchangePolicy.vue'
 import ProductDetails from '../views/ProductDetails.vue'
@@ -50,8 +50,8 @@ const router = createRouter({
     },
     {
       path: '/bo-suu-tap/:id',
-      name: 'products',
-      component: Products,
+      name: 'collection',
+      component: Collection,
       props: true,
     },
     {
