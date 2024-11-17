@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- Icon cart -->
-    <font-awesome-icon icon="shopping-cart" class="text-xl p-2 pt-3" />
+    <font-awesome-icon icon="shopping-cart" class="text-xl p-2 pt-3 text-white" />
 
     <!-- Vòng tròn đỏ với số lượng sản phẩm -->
     <div

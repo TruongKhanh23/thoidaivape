@@ -1,8 +1,11 @@
 <template>
-  <div class="flex justify-center bg-[#EAEBED] min-h-screen pt-2 pb-4">
-    <p>Products: {{ productId }}</p>
-  </div>
+  <CLayout>
+    <div class="flex justify-center min-h-screen">
+      <p>Products: {{ productId }}</p>
+    </div>
+  </CLayout>
 </template>
+
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'

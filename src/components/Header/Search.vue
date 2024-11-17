@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <!-- Tăng kích thước icon và màu sắc khi tìm kiếm -->
     <button @click="toggleSearch" class="p-2 text-xl">
-      <font-awesome-icon :icon="isSearching ? 'times' : 'search'" />
+      <font-awesome-icon :icon="isSearching ? 'times' : 'search'" class="text-white" />
     </button>
     <div
       v-if="isSearching"

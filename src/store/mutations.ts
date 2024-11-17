@@ -1,10 +1,8 @@
 import type { State } from '@/store/state'
+import { mutations as user } from '@/store/user/mutations'
+import { mutations as isLoggedIn } from '@/store/isLoggedIn/mutations'
 
 export const mutations = {
-  increment(state: State) {
-    state.count++
-  },
-  decrement(state: State) {
-    state.count--
-  },
+  ...user,
+  ...isLoggedIn,
 }

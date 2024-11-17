@@ -1,6 +1,6 @@
 <template>
   <div @click="goHome" class="cursor-pointer">
-    <img src="/img/logo_white.jfif" alt="Logo" class="w-16 lg:w-16 h-auto" />
+    <img src="/img/original_logo.png" alt="Logo" class="h-20 w-20" />
   </div>
 </template>
 
@@ -10,7 +10,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 function goHome() {
-  router.push('/')
+  router.push('/').then(() => {
+    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+  })
 }
 </script>
 
