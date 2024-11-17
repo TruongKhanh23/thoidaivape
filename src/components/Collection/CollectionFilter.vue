@@ -15,7 +15,13 @@
             :key="brand"
             class="flex items-center space-x-2 w-fit"
           >
-            <input type="checkbox" :value="brand" v-model="selected.brand" class="checkbox" />
+            <input
+              type="checkbox"
+              :value="brand"
+              v-model="selected.brand"
+              @change="emitFilters"
+              class="checkbox"
+            />
             <span>{{ brand }}</span>
           </label>
         </div>
@@ -26,19 +32,17 @@
         <h3 class="text-sm font-semibold mb-2">Giá</h3>
         <div>
           <label v-for="price in filters.price" :key="price" class="flex items-center space-x-2">
-            <input type="checkbox" :value="price" v-model="selected.price" class="checkbox" />
+            <input
+              type="checkbox"
+              :value="price"
+              v-model="selected.price"
+              @change="emitFilters"
+              class="checkbox"
+            />
             <span>{{ price }}</span>
           </label>
         </div>
       </div>
-
-      <!-- Apply Filters Button -->
-      <button
-        @click="applyFilters"
-        class="w-full px-4 py-2 text-white bg-black hover:bg-[#3c4043] rounded-md"
-      >
-        Áp dụng bộ lọc
-      </button>
     </div>
   </div>
 </template>
@@ -66,8 +70,8 @@ export default {
     }
   },
   methods: {
-    applyFilters() {
-      this.$emit('applyFilters', this.selected)
+    emitFilters() {
+      this.$emit('applyFilters', this.selected) // Emit ngay khi checkbox thay đổi
     },
   },
   setup() {
@@ -83,9 +87,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.checkbox {
-  accent-color: #2563eb; /* Tailwind Blue 500 */
-}
-</style>
