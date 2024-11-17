@@ -24,13 +24,7 @@
 
 <script setup>
 import { ref, defineEmits } from 'vue'
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -80,35 +74,6 @@ const register = () => {
           errorMessage.value = 'Đã xảy ra lỗi. Vui lòng thử lại.'
       }
       console.log(error.code)
-    })
-}
-
-const signInWithGoogle = () => {
-  const auth = getAuth()
-  const provider = new GoogleAuthProvider()
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      store.dispatch('setUser', result.user)
-      router.push('/').then(() => {
-        window.scrollTo(0, 0) // Scroll to the top after navigating to home
-      })
-    })
-    .catch((error) => {
-      // Bắt lỗi và hiển thị thông báo lỗi bằng tiếng Việt
-      switch (error.code) {
-        case 'auth/popup-closed-by-user':
-          errorMessage.value = 'Bạn đã đóng cửa sổ đăng nhập Google trước khi hoàn tất.'
-          break
-        case 'auth/cancelled-popup-request':
-          errorMessage.value = 'Đã có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại.'
-          break
-        case 'auth/network-request-failed':
-          errorMessage.value = 'Lỗi kết nối mạng. Vui lòng kiểm tra lại kết nối.'
-          break
-        default:
-          errorMessage.value = 'Đã xảy ra lỗi khi đăng nhập bằng Google. Vui lòng thử lại.'
-      }
-      console.error('Error during Google sign-in:', error)
     })
 }
 
