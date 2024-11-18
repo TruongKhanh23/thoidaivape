@@ -82,7 +82,7 @@ export default {
     }
 
     const goToCollection = (name) => {
-      router.push({ name: 'products', params: { id: name } }).then(() => {
+      router.push({ name: 'collection', params: { id: name } }).then(() => {
         window.scrollTo(0, 0)
       })
     }
