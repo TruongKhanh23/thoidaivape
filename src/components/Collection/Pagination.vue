@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center space-x-2">
     <!-- Previous button -->
-    <CButton variant="white-fit" @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
+    <CButton variant="white" @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
       >Trước</CButton
     >
 
@@ -9,7 +9,7 @@
     <div class="flex items-center space-x-1">
       <CButton
         v-for="page in pageNumbers"
-        variant="white-fit"
+        variant="white"
         :class="{
           '!bg-black !text-white': currentPage === page,
           '': true,
@@ -23,7 +23,7 @@
 
     <!-- Next button -->
     <CButton
-      variant="white-fit"
+      variant="white"
       @click="changePage(currentPage + 1)"
       :disabled="currentPage === totalPages"
       class="px-3 py-1 border rounded-md cursor-pointer bg-white"

@@ -2,7 +2,7 @@
   <LoadingModal :isOpen="isOpenLoadingModal" />
   <div class="mt-4 space-y-2">
     <CText>hoặc đăng nhập nhanh bằng</CText>
-    <CButton variant="white" class="!py-0" @click="signInWithGoogle">
+    <CButton variant="white" class="!w-full !py-0" @click="signInWithGoogle">
       <div class="flex flex-row items-center justify-center">
         <img src="/google.svg" alt="Google logo" class="mr-2" /> Google
       </div>
