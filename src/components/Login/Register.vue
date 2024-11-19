@@ -10,12 +10,12 @@
       <Email v-model="email" />
       <Password v-model="password" />
       <ErrorMessage :message="errorMessage" />
-      <CButton type="submit">Đăng ký</CButton>
+      <CButton class="!w-full" type="submit">Đăng ký</CButton>
     </form>
     <div class="mt-4 space-y-2">
       <SignInWithGoogle @action:updateErrorMessage="handleErrorMessage" />
       <CText variant="body-1" class="!text-blue-700">Đã có tài khoản?</CText>
-      <CButton variant="white" @click="$emit('action:updateLoginType', 'signIn')">
+      <CButton variant="white" class="!w-full" @click="$emit('action:updateLoginType', 'signIn')">
         Đăng nhập
       </CButton>
     </div>
