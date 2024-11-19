@@ -1,5 +1,5 @@
 import { db } from '@/firebaseConfig' // Import auth và Firestore từ Firebase config
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 
 import store from '@/store'
 
@@ -44,10 +44,11 @@ export async function createUser(user) {
       email: user.email,
       phoneNumber: user.phoneNumber || '',
       address: '', // Có thể cập nhật sau
-      createdDate: serverTimestamp(),
-      modifiedDate: serverTimestamp(),
+      createdDate: new Date(), // Dùng ngày hiện tại thay vì serverTimestamp()
+      modifiedDate: new Date(), // Dùng ngày hiện tại thay vì serverTimestamp()
       provider: providerId,
       additionalInfo: {}, // Các thông tin bổ sung (nếu có)
+      role: "user"
     }
 
     // Lưu vào Firestore
