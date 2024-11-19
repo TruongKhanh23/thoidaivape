@@ -14,7 +14,7 @@
       <RememberMeCheckbox v-model="rememberMe" />
       <ForgotPasswordLink @click="$emit('action:openResetPasswordModal', true)" />
     </div>
-    <CButton type="submit">Đăng nhập</CButton>
+    <CButton class="!w-full" type="submit">Đăng nhập</CButton>
   </form>
   <SignInWithGoogle @action:updateErrorMessage="handleErrorMessage" />
 </template>
