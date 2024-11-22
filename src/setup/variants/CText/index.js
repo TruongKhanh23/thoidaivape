@@ -75,6 +75,16 @@ const variants = {
     },
   },
 
+  'title-upper-slim': {
+    el: {
+      color: defaultTextColor,
+      fontWeight: 'font-semibold',
+      fontStyle: 'normal',
+      textTransform: 'uppercase',
+      fontSize: 'text-2xl',
+    },
+  },
+
   'title-secondary': {
     el: {
       color: defaultTextColor,
