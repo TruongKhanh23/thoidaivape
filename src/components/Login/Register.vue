@@ -2,7 +2,7 @@
   <div class="w-full max-w-md p-6 md:border rounded-lg sm:shadow bg-white">
     <form class="space-y-6" @submit.prevent="register">
       <div class="flex flex-col items-center justify-center">
-        <CText variant="title-uppercase">
+        <CText variant="title-upper-slim">
           Đăng ký <br />
           Thời đại Vape
         </CText>
