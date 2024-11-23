@@ -31,7 +31,12 @@ export async function getAllCollections() {
   }
   const response = await client.getEntries(query)
 
-  return response.items.map((item) => item.fields)
+  return response.items.map((item) => {
+    return {
+      ...item.fields,
+      sysId: item.sys.id,
+    }
+  })
 }
 
 /**
@@ -48,14 +53,9 @@ export async function getProductsByCollection(collectionId, page = 1, filters = 
     ...filters, // Giữ các thuộc tính khác
   }
 
-  const limit = 30 // Items per page
-  const skip = (page - 1) * limit
-
   const query = {
     content_type: 'product',
     'fields.collectionId': collectionId,
-    limit,
-    skip,
   }
 
   if (filters.priceRange[0] !== null) query['fields.price[gte]'] = filters.priceRange[0]

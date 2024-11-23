@@ -45,9 +45,6 @@ import CollectionSort from '@/components/Collection/CollectionSort.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Pagination from '@/components/Collection/Pagination.vue'
 
-import { dummyProducts } from '@/assets/dummy/products.js'
-import { collectionInfoDummy } from '@/assets/dummy/collection.js'
-
 export default {
   name: 'Collection',
   components: {
@@ -64,10 +61,11 @@ export default {
     const collectionDetails = computed(() => {
       return store.getters.getCollections.find((item) => item.id == collectionId.value)
     })
-    const products = ref(dummyProducts)
-
-    // Thông tin collection
-    const collectionInfo = ref(collectionInfoDummy)
+    const allProducts = computed(() => store.getters.getProducts)
+    const products = computed(() => {
+      const data = allProducts.value.find((item) => item.collectionId == collectionId.value)
+      return data.products
+    })
 
     // Bộ lọc sản phẩm
     const filters = ref({
@@ -180,7 +178,6 @@ export default {
     return {
       collectionDetails,
       collectionId,
-      collectionInfo,
       filters,
       selectedFilters,
       filteredProducts,
