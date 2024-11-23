@@ -34,22 +34,16 @@ function generateVapeProducts() {
   }
 
   const tags = [
-    '#vape',
-    '#vapelife',
-    '#vaping',
-    '#cloudchasing',
-    '#vapor',
-    '#vapesociety',
-    '#vapedaily',
-    '#vapestore',
-    '#smokingalternative',
-    '#healthylifestyle',
-  ]
-
-  const images = [
-    '//images.ctfassets.net/yw68m1qjiwhp/4b80KL8NDwFWQtRV3YnO62/2c6f91ea79ea202f76733e21078e5af2/image.png',
-    '//images.ctfassets.net/yw68m1qjiwhp/7HN5wGdlYMFXzcJqjgwBGg/618e7865297d95b24baa18bb479e637c/image.png',
-    '//images.ctfassets.net/yw68m1qjiwhp/etjF3KebzT6o5fbJ8s0Io/9371ce8e6d1081edecd1b44503962532/image.png',
+    'vape',
+    'vapelife',
+    'vaping',
+    'cloudchasing',
+    'vapor',
+    'vapesociety',
+    'vapedaily',
+    'vapestore',
+    'smokingalternative',
+    'healthylifestyle',
   ]
 
   const priceRanges = [
@@ -60,7 +54,7 @@ function generateVapeProducts() {
 
   let products = []
 
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < 3; i++) {
     const priceRange = priceRanges[Math.floor(Math.random() * priceRanges.length)]
     const price = (Math.random() * (priceRange.max - priceRange.min) + priceRange.min).toFixed(0)
     const salePrice = (Math.random() * (priceRange.max - priceRange.min) + priceRange.min).toFixed(
@@ -71,13 +65,10 @@ function generateVapeProducts() {
       name: productNames[Math.floor(Math.random() * productNames.length)],
       shortDescription: loremIpsum(),
       description: loremIpsum(),
-      price: parseInt(price).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }), // Định dạng giá VND
-      salePrice: parseInt(salePrice).toLocaleString('it-IT', {
-        style: 'currency',
-        currency: 'VND',
-      }),
-      thumbnail: images[0], // Fixed thumbnail image
-      images: images,
+      price: parseInt(price), // Định dạng giá VND
+      salePrice: parseInt(salePrice), // Fixed thumbnail image
+      thumbnail: [],
+      images: [],
       collectionId: collectionIds[Math.floor(Math.random() * collectionIds.length)],
       tags: tags.slice(0, Math.floor(Math.random() * 5) + 1), // Random 1-5 tags
       soldAmount: Math.floor(Math.random() * 1000), // Random sold amount
@@ -92,4 +83,4 @@ function generateVapeProducts() {
   return products
 }
 
-console.log(generateVapeProducts())
+console.log(JSON.stringify(generateVapeProducts()))
