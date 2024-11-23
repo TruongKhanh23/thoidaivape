@@ -5,11 +5,18 @@
   >
     <!-- Hình sản phẩm -->
     <div
+      v-if="!product.thumbnail"
       :style="{ background: product.thumbnail || getRandomGradient() }"
       class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center px-4"
     >
-      <span v-if="!product.thumbnail">{{ product.name }}</span>
-      <img else :src="product.thumbnail" alt="thumbnail" />
+      <span>{{ product.name }}</span>
+    </div>
+    <div
+      v-else
+      :style="{ background: product.thumbnail || getRandomGradient() }"
+      class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center px-4"
+    >
+      <img :src="product.thumbnail" alt="thumbnail" />
     </div>
 
     <div class="p-4 pt-0 text-xs sm:text-base">

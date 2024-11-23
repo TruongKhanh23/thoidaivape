@@ -64,12 +64,17 @@ export default {
     const allProducts = computed(() => store.getters.getProducts)
     const products = computed(() => {
       const data = allProducts.value.find((item) => item.collectionId == collectionId.value)
+
       return data.products
+    })
+    const brands = computed(() => {
+      const brandsSet = new Set(products.value.map((product) => product.brand))
+      return Array.from(brandsSet)
     })
 
     // Bộ lọc sản phẩm
     const filters = ref({
-      brand: ['Brand A', 'Brand B', 'Brand C'],
+      brand: brands,
       price: ['Dưới 500K', '500K - 1M', 'Trên 1M'],
       hits: ['Dưới 100', '100 - 200', 'Trên 200'],
       power: ['Dưới 50W', '50W - 100W', 'Trên 100W'],
@@ -151,7 +156,7 @@ export default {
           return sorted.sort((a, b) => a.name.localeCompare(b.name))
         case 'newest':
         default:
-          return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          return sorted.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
       }
     })
 

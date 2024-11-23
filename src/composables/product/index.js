@@ -64,6 +64,8 @@ export async function getProductsByCollection(collectionId, page = 1, filters = 
   if (filters.power[1] !== null) query['fields.power[lte]'] = filters.power[1]
 
   const response = await client.getEntries(query)
+  console.log('response', response)
+
   const result = {
     products: response.items.map((item) => ({
       id: item.sys.id,
@@ -73,7 +75,7 @@ export async function getProductsByCollection(collectionId, page = 1, filters = 
       price: item.fields.price,
       salePrice: item.fields.salePrice,
       thumbnail: item.fields.thumbnail?.fields?.file?.url || '',
-      images: item.fields.images.map((item) => item.fields?.file?.url || ''),
+      images: item.fields.images?.map((item) => item.fields?.file?.url || '') ?? '',
       brand: item.fields.brand,
       hits: item.fields.hits,
       power: item.fields.power,
