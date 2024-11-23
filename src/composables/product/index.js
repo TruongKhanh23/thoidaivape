@@ -74,6 +74,7 @@ export async function getProductsByCollection(collectionId, page = 1, filters = 
       thumbnail: item.fields.thumbnail?.fields?.file?.url || '',
       brand: item.fields.brand,
       power: item.fields.power,
+      soldAmount: item.fields.soldAmount,
     })),
     total: response.total,
   }

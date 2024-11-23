@@ -5,10 +5,11 @@
   >
     <!-- Hình sản phẩm -->
     <div
-      :style="{ background: product.image || getRandomGradient() }"
+      :style="{ background: product.thumbnail || getRandomGradient() }"
       class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center px-4"
     >
-      <span v-if="!product.image">{{ product.name }}</span>
+      <span v-if="!product.thumbnail">{{ product.name }}</span>
+      <img else :src="product.thumbnail" alt="thumbnail" />
     </div>
 
     <div class="p-4 pt-0 text-xs sm:text-base">
@@ -26,19 +27,15 @@
       <div
         class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:space-x-2 items-center justify-end sm:justify-center text-center px-4 md:px-0 min-h-[2.5rem] sm:min-h-[2rem]"
       >
-        <p
-          :class="
-            product.discountedPrice ? 'text-gray-400 line-through' : 'font-bold text-[#F13D55]'
-          "
-        >
+        <p :class="product.salePrice ? 'text-gray-400 line-through' : 'font-bold text-[#F13D55]'">
           {{ formatCurrency(product.price) }}
         </p>
-        <p v-if="product.discountedPrice" class="font-bold text-[#F13D55]">
-          {{ formatCurrency(product.discountedPrice) }}
+        <p v-if="product.salePrice" class="font-bold text-[#F13D55]">
+          {{ formatCurrency(product.salePrice) }}
         </p>
       </div>
 
-      <p class="text-gray-500 mt-2">Đã bán: {{ product.sold }}</p>
+      <p class="text-gray-500 mt-2">Đã bán: {{ product.soldAmount }}</p>
     </div>
   </div>
 </template>
