@@ -2,7 +2,10 @@
   <CLayout>
     <div class="container mx-auto space-y-4 px-2 sm:px-0">
       <!-- Collection Information -->
-      <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
+      <CollectionInformation
+        :title="collectionDetails.name"
+        :description="collectionDetails.description"
+      />
 
       <div class="flex flex-col lg:flex-row gap-4">
         <!-- Sidebar Filters -->
@@ -17,7 +20,7 @@
         <!-- Main Content -->
         <div class="lg:w-3/4 space-y-4">
           <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
-          <ProductList :products="paginatedProducts" :title="productId" />
+          <ProductList :products="paginatedProducts" :title="collectionId" />
           <Pagination
             class="py-4"
             :totalItems="filteredProducts.length"
@@ -33,6 +36,7 @@
 
 <script>
 import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
 import CollectionInformation from '@/components/Collection/CollectionInformation.vue'
@@ -40,9 +44,6 @@ import CollectionFilter from '@/components/Collection/CollectionFilter.vue'
 import CollectionSort from '@/components/Collection/CollectionSort.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Pagination from '@/components/Collection/Pagination.vue'
-
-import { dummyProducts } from '@/assets/dummy/products.js'
-import { collectionInfoDummy } from '@/assets/dummy/collection.js'
 
 export default {
   name: 'Collection',
@@ -54,16 +55,26 @@ export default {
     Pagination,
   },
   setup() {
+    const store = useStore()
     const route = useRoute()
-    const productId = computed(() => route.params.id)
-    const products = ref(dummyProducts)
+    const collectionId = computed(() => route.params.id)
+    const collectionDetails = computed(() => {
+      return store.getters.getCollections.find((item) => item.id == collectionId.value)
+    })
+    const allProducts = computed(() => store.getters.getProducts)
+    const products = computed(() => {
+      const data = allProducts.value.find((item) => item.collectionId == collectionId.value)
 
-    // Thông tin collection
-    const collectionInfo = ref(collectionInfoDummy)
+      return data.products
+    })
+    const brands = computed(() => {
+      const brandsSet = new Set(products.value.map((product) => product.brand))
+      return Array.from(brandsSet)
+    })
 
     // Bộ lọc sản phẩm
     const filters = ref({
-      brand: ['Brand A', 'Brand B', 'Brand C'],
+      brand: brands,
       price: ['Dưới 500K', '500K - 1M', 'Trên 1M'],
       hits: ['Dưới 100', '100 - 200', 'Trên 200'],
       power: ['Dưới 50W', '50W - 100W', 'Trên 100W'],
@@ -129,14 +140,12 @@ export default {
 
         return true
       })
-      console.log(result)
       return result
     })
 
     // Computed: Sorted products
     const sortedProducts = computed(() => {
       const sorted = [...filteredProducts.value]
-      console.log('sorted', sorted)
 
       switch (sortOption.value) {
         case 'priceHighToLow':
@@ -147,7 +156,7 @@ export default {
           return sorted.sort((a, b) => a.name.localeCompare(b.name))
         case 'newest':
         default:
-          return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          return sorted.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
       }
     })
 
@@ -172,9 +181,8 @@ export default {
     }
 
     return {
-      collectionInfoDummy,
-      productId,
-      collectionInfo,
+      collectionDetails,
+      collectionId,
       filters,
       selectedFilters,
       filteredProducts,
