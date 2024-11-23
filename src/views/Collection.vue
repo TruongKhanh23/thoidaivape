@@ -2,7 +2,7 @@
   <CLayout>
     <div class="container mx-auto space-y-4 px-2 sm:px-0">
       <!-- Collection Information -->
-      <CollectionInformation :title="productId" :description="collectionInfoDummy.description" />
+      <CollectionInformation :title="collectionId" :description="collectionInfoDummy.description" />
 
       <div class="flex flex-col lg:flex-row gap-4">
         <!-- Sidebar Filters -->
@@ -17,7 +17,7 @@
         <!-- Main Content -->
         <div class="lg:w-3/4 space-y-4">
           <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
-          <ProductList :products="paginatedProducts" :title="productId" />
+          <ProductList :products="paginatedProducts" :title="collectionId" />
           <Pagination
             class="py-4"
             :totalItems="filteredProducts.length"
@@ -55,7 +55,7 @@ export default {
   },
   setup() {
     const route = useRoute()
-    const productId = computed(() => route.params.id)
+    const collectionId = computed(() => route.params.id)
     const products = ref(dummyProducts)
 
     // Thông tin collection
@@ -129,15 +129,13 @@ export default {
 
         return true
       })
-      console.log(result)
       return result
     })
 
     // Computed: Sorted products
     const sortedProducts = computed(() => {
       const sorted = [...filteredProducts.value]
-      console.log('sorted', sorted)
-
+      
       switch (sortOption.value) {
         case 'priceHighToLow':
           return sorted.sort((a, b) => b.price - a.price)
@@ -173,7 +171,7 @@ export default {
 
     return {
       collectionInfoDummy,
-      productId,
+      collectionId,
       collectionInfo,
       filters,
       selectedFilters,
