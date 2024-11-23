@@ -21,7 +21,7 @@
       </h3>
 
       <p class="text-gray-500 mb-2 line-clamp-2 min-h-[1.5rem] sm:min-h-[3rem]">
-        {{ product.description }}
+        {{ product.shortDescription }}
       </p>
 
       <div
