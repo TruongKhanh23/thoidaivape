@@ -25,6 +25,15 @@ export async function getCollectionDetails(id) {
   return result
 }
 
+export async function getAllCollections() {
+  const query = {
+    content_type: 'collection',
+  }
+  const response = await client.getEntries(query)
+
+  return response.items.map((item) => item.fields)
+}
+
 /**
  * Get products by collection ID with pagination and filtering options.
  * @param {string} collectionId

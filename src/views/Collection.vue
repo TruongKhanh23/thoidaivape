@@ -2,7 +2,10 @@
   <CLayout>
     <div class="container mx-auto space-y-4 px-2 sm:px-0">
       <!-- Collection Information -->
-      <CollectionInformation :title="collectionId" :description="collectionInfoDummy.description" />
+      <CollectionInformation
+        :title="collectionDetails.name"
+        :description="collectionDetails.description"
+      />
 
       <div class="flex flex-col lg:flex-row gap-4">
         <!-- Sidebar Filters -->
@@ -33,6 +36,7 @@
 
 <script>
 import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
 import CollectionInformation from '@/components/Collection/CollectionInformation.vue'
@@ -54,8 +58,12 @@ export default {
     Pagination,
   },
   setup() {
+    const store = useStore()
     const route = useRoute()
     const collectionId = computed(() => route.params.id)
+    const collectionDetails = computed(() => {
+      return store.getters.getCollections.find((item) => item.id == collectionId.value)
+    })
     const products = ref(dummyProducts)
 
     // Thông tin collection
@@ -135,7 +143,7 @@ export default {
     // Computed: Sorted products
     const sortedProducts = computed(() => {
       const sorted = [...filteredProducts.value]
-      
+
       switch (sortOption.value) {
         case 'priceHighToLow':
           return sorted.sort((a, b) => b.price - a.price)
@@ -170,7 +178,7 @@ export default {
     }
 
     return {
-      collectionInfoDummy,
+      collectionDetails,
       collectionId,
       collectionInfo,
       filters,
