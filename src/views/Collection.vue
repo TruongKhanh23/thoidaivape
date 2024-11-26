@@ -74,12 +74,12 @@ const collectionDetails = computed(() => {
 })
 const allProducts = computed(() => store.getters.getProducts)
 const products = computed(() => {
-  const data = allProducts.value.find((item) => item.collectionId == collectionId.value)
+  const data = allProducts.value.filter((item) => item.collection.id == collectionId.value)
 
-  return data.products
+  return data
 })
 const brands = computed(() => {
-  const brandsSet = new Set(products.value.map((product) => product.brand))
+  const brandsSet = new Set(products.value.map((product) => product.brand.id))
   return Array.from(brandsSet)
 })
 
@@ -106,11 +106,13 @@ const currentPage = ref(1)
 
 // Computed: Filtered products
 const filteredProducts = computed(() => {
+  console.log('products.value.', products.value)
+
   const result = products.value.filter((product) => {
     // Brand filter
     if (
       selectedFilters.value.brand.length &&
-      !selectedFilters.value.brand.includes(product.brand)
+      !selectedFilters.value.brand.includes(product.brand.id)
     ) {
       return false
     }
