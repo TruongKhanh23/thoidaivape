@@ -1,5 +1,6 @@
 import client from '@/contentfulConfig'
-import { collection } from 'firebase/firestore'
+import { db } from "@/firebaseConfig"
+import { collection, getDocs } from 'firebase/firestore';
 
 /**
  * Get collection details by ID.
@@ -25,7 +26,23 @@ export async function getCollectionDetails(id) {
   return result
 }
 
-export async function getAllCollections() {
+export async function getAllProducts() {
+  const products = [];
+
+  // Sử dụng collection để lấy tham chiếu đến bộ sưu tập 'products'
+  const productsCollection = collection(db, 'products')
+
+  // Lấy danh sách tài liệu từ bộ sưu tập
+  const snapshot = await getDocs(productsCollection);
+
+  snapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() });
+  });
+
+  return products;
+}
+
+export async function getAllCollectionsContentful() {
   const query = {
     content_type: 'collection',
   }
