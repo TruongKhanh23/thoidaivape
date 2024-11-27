@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { RouterView } from 'vue-router'
 
@@ -17,7 +17,6 @@ import Navigation from './components/Navigation.vue'
 import Footer from '@/components/Footer.vue'
 
 const store = useStore()
-const products = ref([])
 
 const collections = [
   {
@@ -51,8 +50,6 @@ const collections = [
 ]
 
 onMounted(async () => {
-  products.value = await getAllProducts()
-  store.dispatch('setProducts', products.value)
   store.dispatch('setCollections', collections)
 })
 </script>

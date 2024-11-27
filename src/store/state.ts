@@ -1,5 +1,4 @@
 export interface State {
-  count: number
   user: object
   isLoggedIn: boolean
   isLoading: boolean
@@ -7,7 +6,6 @@ export interface State {
   collections: object
 }
 export const state: State = {
-  count: 0,
   user: {},
   isLoggedIn: false,
   isLoading: true,

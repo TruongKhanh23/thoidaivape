@@ -30,11 +30,20 @@
         <!-- Skeleton or Main Content -->
         <div class="lg:w-3/4 space-y-4">
           <template v-if="isLoading">
-            <SkeletonLoader :rows="48" />
+            <SkeletonLoader :rows="4" />
           </template>
           <template v-else>
             <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
-            <ProductList :products="paginatedProducts" :title="collectionId" />
+          </template>
+          <template v-if="isLoading">
+            <SkeletonLoader :rows="43" />
+          </template>
+          <template v-else>
+            <ProductList
+              :products="paginatedProducts"
+              :title="collectionId"
+              :isLoading="isLoading"
+            />
             <Pagination
               class="py-4"
               :totalItems="filteredProducts.length"
@@ -50,7 +59,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
@@ -60,24 +69,40 @@ import CollectionSort from '@/components/Collection/CollectionSort.vue'
 import ProductList from '@/components/Products/ProductList.vue'
 import Pagination from '@/components/Collection/Pagination.vue'
 
+import { getProductsByCollection } from '@/composables/product'
+
 const store = useStore()
 const route = useRoute()
 
 const isLoading = computed(() => store.getters.getIsLoading)
-onMounted(() => {
-  store.dispatch('setIsLoading', false)
-})
-
 const collectionId = computed(() => route.params.id)
 const collectionDetails = computed(() => {
   return store.getters.getCollections.find((item) => item.id == collectionId.value)
 })
-const allProducts = computed(() => store.getters.getProducts)
-const products = computed(() => {
-  const data = allProducts.value.filter((item) => item.collection.id == collectionId.value)
 
-  return data
+const products = ref([])
+
+onMounted(async () => {
+  await fetchProductsByCollection(collectionId)
 })
+
+watch(collectionId, async () => {
+  await fetchProductsByCollection(collectionId)
+})
+
+async function fetchProductsByCollection(collectionId) {
+  store.dispatch('setIsLoading', true)
+  try {
+    products.value = await getProductsByCollection(collectionId.value, 'cache')
+    console.log('Fetched from cache:', products.value)
+  } catch (cacheError) {
+    console.warn('Cache fetch failed, falling back to server:', cacheError)
+    products.value = await getProductsByCollection(collectionId.value, 'server')
+    console.log('Fetched from server:', products.value)
+  }
+  store.dispatch('setIsLoading', false)
+}
+
 const brands = computed(() => {
   const brandsSet = new Set(products.value.map((product) => product.brand.id))
   return Array.from(brandsSet)

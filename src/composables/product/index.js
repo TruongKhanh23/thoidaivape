@@ -1,153 +1,53 @@
-import client from '@/contentfulConfig'
-import { db } from "@/firebaseConfig"
-import { collection, getDocs } from 'firebase/firestore';
-
-/**
- * Get collection details by ID.
- * @param {string} collectionId
- * @returns {Promise<object>}
- */
-export async function getCollectionDetails(id) {
-  const query = {
-    content_type: 'collection',
-    'fields.id': id,
-  }
-  const response = await client.getEntries(query)
-  const collection = response.items[0]
-  const collectionId = collection?.sys?.id ?? null
-
-  const result = collectionId
-    ? {
-        id: collection.sys.id,
-        name: collection.fields.name,
-        description: collection.fields.description,
-      }
-    : {}
-  return result
-}
+import { db } from '@/firebaseConfig'
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 
 export async function getAllProducts() {
-  const products = [];
+  console.log('wwent getAllProducts')
+
+  const products = []
 
   // Sử dụng collection để lấy tham chiếu đến bộ sưu tập 'products'
   const productsCollection = collection(db, 'products')
 
   // Lấy danh sách tài liệu từ bộ sưu tập
-  const snapshot = await getDocs(productsCollection);
+  const snapshot = await getDocs(productsCollection)
 
   snapshot.forEach((doc) => {
-      products.push({ id: doc.id, ...doc.data() });
-  });
-
-  return products;
-}
-
-export async function getAllCollectionsContentful() {
-  const query = {
-    content_type: 'collection',
-  }
-  const response = await client.getEntries(query)
-
-  return response.items.map((item) => {
-    return {
-      ...item.fields,
-      sysId: item.sys.id,
-    }
+    products.push({ id: doc.id, ...doc.data(), thumbnail: '', images: [] })
   })
+
+  return products
 }
 
 /**
- * Get products by collection ID with pagination and filtering options.
- * @param {string} collectionId
- * @param {number} page
- * @param {object} filters
- * @returns {Promise<{products: object[], total: number}>}
+ * Lấy danh sách sản phẩm dựa trên collectionId
+ * @param {string} collectionId - ID của collection cần lấy sản phẩm
+ * @returns {Promise<Array>} - Danh sách sản phẩm phù hợp
  */
-export async function getProductsByCollection(collectionId, page = 1, filters = {}) {
-  filters = {
-    priceRange: filters.priceRange || [null, null],
-    power: filters.power || [null, null],
-    ...filters, // Giữ các thuộc tính khác
+export async function getProductsByCollection(collectionId, source = 'default') {
+  console.log('Fetching products for collectionId:', collectionId)
+
+  const products = []
+
+  // Tạo tham chiếu đến bộ sưu tập 'products' và thêm điều kiện where
+  const productsCollection = collection(db, 'products')
+  const q = query(
+    productsCollection,
+    where('collection.id', '==', collectionId), // Lọc theo collection.id
+    orderBy('soldAmount', 'desc'), // Sắp xếp giảm dần theo soldAmount
+  )
+
+  try {
+    // Thực hiện query từ nguồn xác định: "default", "cache", hoặc "server"
+    const snapshot = await getDocs(q, { source })
+
+    snapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() })
+    })
+
+    return products
+  } catch (error) {
+    console.error('Error fetching products:', error)
+    throw error
   }
-
-  const query = {
-    content_type: 'product',
-    'fields.collectionId': collectionId,
-  }
-
-  if (filters.priceRange[0] !== null) query['fields.price[gte]'] = filters.priceRange[0]
-  if (filters.priceRange[1] !== null) query['fields.price[lte]'] = filters.priceRange[1]
-  if (filters.power[0] !== null) query['fields.power[gte]'] = filters.power[0]
-  if (filters.power[1] !== null) query['fields.power[lte]'] = filters.power[1]
-
-  const response = await client.getEntries(query)
-  console.log('response', response)
-
-  const result = {
-    products: response.items.map((item) => ({
-      id: item.sys.id,
-      name: item.fields.name,
-      shortDescription: item.fields.shortDescription,
-      description: item.fields.description,
-      price: item.fields.price,
-      salePrice: item.fields.salePrice,
-      thumbnail: item.fields.thumbnail?.fields?.file?.url || '',
-      images: item.fields.images?.map((item) => item.fields?.file?.url || '') ?? '',
-      brand: item.fields.brand,
-      hits: item.fields.hits,
-      power: item.fields.power,
-      tags: item.fields.tags,
-      soldAmount: item.fields.soldAmount,
-      updatedAt: item.sys.updatedAt,
-    })),
-    total: response.total,
-  }
-  console.log('result', result)
-
-  return result
-}
-
-/**
- * Extract unique brands from product list.
- * @param {object[]} products
- * @returns {string[]}
- */
-export function extractBrands(products) {
-  return [...new Set(products.map((product) => product.brand))]
-}
-
-/**
- * Filter products based on predefined price ranges.
- * @returns {object[]}
- */
-export function getPriceRanges() {
-  return [
-    { label: 'Dưới 500K', range: [null, 500000] },
-    { label: '500K - 1M', range: [500000, 1000000] },
-    { label: 'Trên 1M', range: [1000000, null] },
-  ]
-}
-
-/**
- * Filter products based on power ranges.
- * @returns {object[]}
- */
-export function getPowerRanges() {
-  return [
-    { label: 'Dưới 50W', range: [null, 50] },
-    { label: '50W - 100W', range: [50, 100] },
-    { label: 'Trên 100W', range: [100, null] },
-  ]
-}
-
-/**
- * Filter products based on puff count.
- * @returns {object[]}
- */
-export function getPuffRanges() {
-  return [
-    { label: 'Dưới 100', range: [null, 100] },
-    { label: '100 - 200', range: [100, 200] },
-    { label: 'Trên 200', range: [200, null] },
-  ]
 }
