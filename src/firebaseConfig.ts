@@ -1,7 +1,9 @@
-// firebaseConfig.ts
-
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  enableIndexedDbPersistence,
+} from 'firebase/firestore'
 import urlHostToConfigsMap from './urlHostToConfigsMap'
 
 type FirebaseConfig = {
@@ -22,7 +24,26 @@ const firebaseConfig: FirebaseConfig =
 
 // Khởi tạo Firebase
 const firebaseApp = initializeApp(firebaseConfig)
-const db = getFirestore(firebaseApp)
+
+// Cấu hình Firestore với bộ nhớ đệm
+const db = initializeFirestore(firebaseApp, {
+  cache: persistentLocalCache({
+    cacheSizeBytes: 10 * 1024 * 1024, // 10MB Cache
+  }),
+})
+
+// Bật chế độ persistence (IndexedDB)
+enableIndexedDbPersistence(db)
+  .then(() => {
+    console.log('Persistence enabled successfully')
+  })
+  .catch((err) => {
+    if (err.code === 'failed-precondition') {
+      console.error('Multiple tabs open, persistence can only be enabled in one tab.')
+    } else if (err.code === 'unimplemented') {
+      console.error('The current browser does not support all features required for persistence.')
+    }
+  })
 
 // Xuất app và config
 export { firebaseApp, db, firebaseConfig }
