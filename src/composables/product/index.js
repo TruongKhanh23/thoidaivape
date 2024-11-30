@@ -2,8 +2,6 @@ import { db } from '@/firebaseConfig'
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 
 export async function getAllProducts() {
-  console.log('wwent getAllProducts')
-
   const products = []
 
   // Sử dụng collection để lấy tham chiếu đến bộ sưu tập 'products'
@@ -30,7 +28,7 @@ export async function getProductsByCollection(collectionId, source = 'default') 
   const products = []
 
   // Tạo tham chiếu đến bộ sưu tập 'products' và thêm điều kiện where
-  const productsCollection = collection(db, 'products')
+  const productsCollection = collection(db, 'products-thumbnail')
   const q = query(
     productsCollection,
     where('collection.id', '==', collectionId), // Lọc theo collection.id

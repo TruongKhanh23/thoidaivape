@@ -1,61 +1,51 @@
 <template>
-  <CLayout>
-    <div class="container mx-auto space-y-4 px-2 sm:px-0">
-      <!-- Skeleton or Collection Information -->
-      <template v-if="isLoading">
-        <SkeletonLoader :rows="8" />
-      </template>
-      <template v-else>
-        <CollectionInformation
-          :title="collectionDetails.name"
-          :description="collectionDetails.description"
-        />
-      </template>
+  <div class="container mx-auto space-y-4">
+    <!-- Skeleton or Collection Information -->
+    <CollectionInformation
+      :title="collectionDetails.name"
+      :description="collectionDetails.description"
+    />
 
-      <div class="flex flex-col lg:flex-row gap-4">
-        <!-- Skeleton or Sidebar Filters -->
-        <div class="lg:w-1/4">
-          <template v-if="isLoading">
-            <SkeletonLoader :rows="48" />
-          </template>
-          <template v-else>
-            <CollectionFilter
-              :filters="filters"
-              :selectedFilters="selectedFilters"
-              @applyFilters="applyFilters"
-            />
-          </template>
-        </div>
+    <div class="flex flex-col lg:flex-row gap-4">
+      <!-- Skeleton or Sidebar Filters -->
+      <div class="lg:w-1/4">
+        <template v-if="isLoading">
+          <SkeletonLoader :rows="48" />
+        </template>
+        <template v-else>
+          <CollectionFilter
+            :filters="filters"
+            :selectedFilters="selectedFilters"
+            @applyFilters="applyFilters"
+          />
+        </template>
+      </div>
 
-        <!-- Skeleton or Main Content -->
-        <div class="lg:w-3/4 space-y-4">
-          <template v-if="isLoading">
-            <SkeletonLoader :rows="4" />
-          </template>
-          <template v-else>
-            <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
-          </template>
-          <template v-if="isLoading">
-            <SkeletonLoader :rows="43" />
-          </template>
-          <template v-else>
-            <ProductList
-              :products="paginatedProducts"
-              :title="collectionId"
-              :isLoading="isLoading"
-            />
-            <Pagination
-              class="py-4"
-              :totalItems="filteredProducts.length"
-              :itemsPerPage="itemsPerPage"
-              :currentPage="currentPage"
-              @changePage="changePage"
-            />
-          </template>
-        </div>
+      <!-- Skeleton or Main Content -->
+      <div class="lg:w-3/4 space-y-4">
+        <template v-if="isLoading">
+          <SkeletonLoader :rows="4" />
+        </template>
+        <template v-else>
+          <CollectionSort :totalProducts="filteredProducts.length" @sortProducts="sortProducts" />
+        </template>
+        <template v-if="isLoading">
+          <SkeletonLoader :rows="43" />
+        </template>
+        <template v-else>
+          <ProductList :products="paginatedProducts" :title="collectionId" :isLoading="isLoading" />
+          <Pagination
+            v-if="filteredProducts.length"
+            class="py-4"
+            :totalItems="filteredProducts.length"
+            :itemsPerPage="itemsPerPage"
+            :currentPage="currentPage"
+            @changePage="changePage"
+          />
+        </template>
       </div>
     </div>
-  </CLayout>
+  </div>
 </template>
 
 <script setup>
@@ -87,6 +77,7 @@ onMounted(async () => {
 })
 
 watch(collectionId, async () => {
+  resetFilters()
   await fetchProductsByCollection(collectionId)
 })
 
@@ -216,5 +207,14 @@ const sortProducts = (option) => {
 
 const changePage = (page) => {
   currentPage.value = page
+}
+
+const resetFilters = () => {
+  selectedFilters.value = {
+    brand: [],
+    price: [],
+    hits: [],
+    power: [],
+  }
 }
 </script>
