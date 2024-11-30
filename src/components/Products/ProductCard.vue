@@ -13,8 +13,7 @@
     </div>
     <div
       v-else
-      :style="{ background: product.thumbnail || getRandomGradient() }"
-      class="h-40 sm:h-60 w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center px-4"
+      class="w-full rounded-t-lg mb-4 flex items-center justify-center text-white text-xl font-bold text-center"
     >
       <img :src="product.thumbnail" alt="thumbnail" />
     </div>

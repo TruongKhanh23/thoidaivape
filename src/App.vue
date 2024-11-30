@@ -1,7 +1,9 @@
 <template>
   <Header />
   <Navigation />
-  <RouterView />
+  <CLayout>
+    <RouterView />
+  </CLayout>
   <Footer />
 </template>
 
@@ -10,11 +12,10 @@ import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { RouterView } from 'vue-router'
 
-import { getAllProducts } from '@/composables/product/index.js'
-
 import Header from './components/Header/Header.vue'
 import Navigation from './components/Navigation.vue'
 import Footer from '@/components/Footer.vue'
+import CLayout from './components/core/CLayout.vue'
 
 const store = useStore()
 

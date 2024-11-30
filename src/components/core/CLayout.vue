@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-[#Bdc1c6] py-2">
+  <div class="flex flex-col bg-[#Bdc1c6] p-2">
     <slot />
   </div>
 </template>
