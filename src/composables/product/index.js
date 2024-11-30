@@ -27,35 +27,20 @@ export async function getProductsByCollection(collectionId, source = 'default') 
 
   const products = []
 
-  // Tạo tham chiếu đến bộ sưu tập 'products' và 'product-thumbnail'
-  const productsCollection = collection(db, 'products')
-  const productThumbnailsCollection = collection(db, 'product-thumbnail')
-
+  // Tạo tham chiếu đến bộ sưu tập 'products' và thêm điều kiện where
+  const productsCollection = collection(db, 'products-thumbnail')
   const q = query(
     productsCollection,
     where('collection.id', '==', collectionId), // Lọc theo collection.id
     orderBy('soldAmount', 'desc'), // Sắp xếp giảm dần theo soldAmount
   )
-  const qThumbnails = query(productThumbnailsCollection, where('collectionId', '==', collectionId))
 
   try {
-    // Thực hiện query từ Firestore
-    const [productSnapshot, productThumbnailsSnapshot] = await Promise.all([
-      getDocs(q, { source }),
-      getDocs(qThumbnails, { source }),
-    ])
+    // Thực hiện query từ nguồn xác định: "default", "cache", hoặc "server"
+    const snapshot = await getDocs(q, { source })
 
-    // Tạo Map từ product-thumbnail để tra cứu nhanh
-    const productThumbnailsMap = new Map()
-    productThumbnailsSnapshot.forEach((docSnap) => {
-      productThumbnailsMap.set(docSnap.id, docSnap.data())
-    })
-
-    // Duyệt qua danh sách sản phẩm và kết hợp dữ liệu
-    productSnapshot.forEach((docSnap) => {
-      const productData = { id: docSnap.id, ...docSnap.data() }
-      const productThumbnails = productThumbnailsMap.get(docSnap.id) || {} // Lấy dữ liệu từ Map, nếu không có thì là {}
-      products.push({ ...productData, ...productThumbnails })
+    snapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() })
     })
 
     return products
