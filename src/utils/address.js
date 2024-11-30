@@ -6,7 +6,7 @@ const API_BASE_URL = 'https://open.oapi.vn/location';
 export const getProvinces = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/provinces`, {
-      params: { page: 0, size: 30, query: '' },
+      params: { page: 0, size: 100, query: '' },
     });
     return response.data?.data || [];
   } catch (error) {
@@ -19,7 +19,7 @@ export const getProvinces = async () => {
 export const getDistrictsByProvince = async (provinceId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/districts/${provinceId}`, {
-      params: { page: 0, size: 30, query: '' },
+      params: { page: 0, size: 100, query: '' },
     });
     return response.data?.data || [];
   } catch (error) {
@@ -32,7 +32,7 @@ export const getDistrictsByProvince = async (provinceId) => {
 export const getWardsByDistrict = async (districtId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/wards/${districtId}`, {
-      params: { page: 0, size: 30, query: '' },
+      params: { page: 0, size: 100, query: '' },
     });
     return response.data?.data || [];
   } catch (error) {
