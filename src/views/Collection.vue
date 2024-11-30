@@ -1,15 +1,10 @@
 <template>
   <div class="container mx-auto space-y-4">
     <!-- Skeleton or Collection Information -->
-    <template v-if="isLoading">
-      <SkeletonLoader :rows="8" />
-    </template>
-    <template v-else>
-      <CollectionInformation
-        :title="collectionDetails.name"
-        :description="collectionDetails.description"
-      />
-    </template>
+    <CollectionInformation
+      :title="collectionDetails.name"
+      :description="collectionDetails.description"
+    />
 
     <div class="flex flex-col lg:flex-row gap-4">
       <!-- Skeleton or Sidebar Filters -->
