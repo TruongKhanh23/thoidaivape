@@ -1,12 +1,6 @@
 <template>
   <LoadingModal :isOpen="isOpenLoadingModal" />
   <form class="space-y-6" @submit.prevent="login">
-    <div class="flex flex-col items-center justify-center">
-      <CText variant="title-uppercase">
-        Đăng nhập <br />
-        Thời đại Vape
-      </CText>
-    </div>
     <Email v-model="email" />
     <Password v-model="password" />
     <ErrorMessage :message="errorMessage" />

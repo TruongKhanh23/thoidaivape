@@ -1,7 +1,5 @@
-// firebaseConfig.ts
-
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import { initializeFirestore, enableIndexedDbPersistence } from 'firebase/firestore'
 import urlHostToConfigsMap from './urlHostToConfigsMap'
 
 type FirebaseConfig = {
@@ -22,7 +20,21 @@ const firebaseConfig: FirebaseConfig =
 
 // Khởi tạo Firebase
 const firebaseApp = initializeApp(firebaseConfig)
-const db = getFirestore(firebaseApp)
+
+// Khởi tạo Firestore mà không sử dụng `cache`
+const db = initializeFirestore(firebaseApp, {})
+
+enableIndexedDbPersistence(db)
+  .then(() => {
+    console.log('Persistence enabled successfully')
+  })
+  .catch((err) => {
+    if (err.code === 'failed-precondition') {
+      console.error('Multiple tabs open, persistence can only be enabled in one tab.')
+    } else if (err.code === 'unimplemented') {
+      console.error('The current browser does not support all features required for persistence.')
+    }
+  })
 
 // Xuất app và config
 export { firebaseApp, db, firebaseConfig }
