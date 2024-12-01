@@ -56,17 +56,7 @@ library.add(faChevronDown, faChevronUp, faTag)
 const store = useStore()
 
 const menuItems = reactive([
-  {
-    name: 'Phụ kiện',
-    path: 'phu-kien',
-    view: 'collection',
-    subMenu: [
-      { name: 'Đầu pod', path: 'dau-pod', view: 'collection' },
-      { name: 'Occ & coil', path: 'occ-coil', view: 'collection' },
-    ],
-    isHovered: false,
-    order: 20,
-  },
+  { name: 'Sale', path: 'sale', view: 'collection', order: 0 },
   { name: 'Bài viết', path: 'bai-viet', view: 'news', isHovered: false, order: 21 },
   { name: 'Thông Tin', path: 'thong-tin', view: 'about', isHovered: false, order: 22 },
 ])
@@ -78,14 +68,31 @@ const syncCollectionsToMenuItems = () => {
   menuItems.splice(0, menuItems.length, ...menuItems.filter((item) => !item.isCollection))
 
   // Thêm mới các mục từ collections với thứ tự mặc định
-  const collectionMenuItems = collections.value.map((item, index) => ({
-    name: item.name,
-    path: item.id,
-    view: 'collection',
-    isCollection: true, // Dùng để xác định các mục từ collections
-    isHovered: false,
-    order: index + 1, // Đặt thứ tự cho các mục từ collections
-  }))
+  const collectionMenuItems = collections.value
+    .filter((collection) => collection.type && collection.type.id == 'parrent')
+    .map((collection) => {
+      const item = {
+        name: collection.name,
+        path: collection.id,
+        view: 'collection',
+        isCollection: true, // Dùng để xác định các mục từ collections
+        isHovered: false,
+        order: collection.orderNumber,
+      }
+      if (collection.childrens) {
+        item.subMenu = []
+        for (const children of collection.childrens) {
+          item.subMenu.push({
+            name: children.name,
+            path: children.id,
+            view: 'collection',
+            order: children.orderNumber,
+          })
+        }
+      }
+      return item
+    })
+
   menuItems.push(...collectionMenuItems)
 
   // Sắp xếp menuItems theo thứ tự

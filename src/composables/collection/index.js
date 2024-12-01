@@ -14,7 +14,14 @@ export const getAllCollections = async (source = 'default') => {
     store.dispatch(
       'setCollections',
       collections.value.map((collection) => {
-        return { id: collection.id, name: collection.name, description: collection.description }
+        return {
+          id: collection.id,
+          name: collection.name,
+          description: collection.description,
+          orderNumber: collection.orderNumber,
+          childrens: collection.childrens,
+          type: collection.type,
+        }
       }),
     )
     return collections.value
