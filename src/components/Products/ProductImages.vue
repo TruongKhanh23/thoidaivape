@@ -5,8 +5,9 @@
     </div>
     <div class="flex justify-center mt-4 space-x-2">
       <img
+        v-for="(image, index) in images"
         :key="index"
-        :src="images[0]"
+        :src="image"
         class="w-16 h-16 cursor-pointer border border-gray-300 rounded-md"
       />
     </div>
