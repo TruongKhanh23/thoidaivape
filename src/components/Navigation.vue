@@ -44,20 +44,18 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive, watch, onMounted } from 'vue'
 import router from '../router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown, faChevronUp, faTag } from '@fortawesome/free-solid-svg-icons'
+import { useStore } from 'vuex'
 
 library.add(faChevronDown, faChevronUp, faTag)
 
+const store = useStore()
+
 const menuItems = reactive([
-  { name: 'Sale', path: 'sale', view: 'collection' },
-  { name: 'Podsystem', path: 'podsystem', view: 'collection' },
-  { name: 'Vape & Box', path: 'vape-box', view: 'collection' },
-  { name: 'Saltnic', path: 'saltnic', view: 'collection' },
-  { name: 'Freebase', path: 'freebase', view: 'collection' },
   {
     name: 'Phụ kiện',
     path: 'phu-kien',
@@ -67,14 +65,43 @@ const menuItems = reactive([
       { name: 'Occ & coil', path: 'occ-coil', view: 'collection' },
     ],
     isHovered: false,
+    order: 20,
   },
-  { name: 'Bài viết', path: 'bai-viet', view: 'news' },
-  { name: 'Thông Tin', path: 'thong-tin', view: 'about' },
+  { name: 'Bài viết', path: 'bai-viet', view: 'news', isHovered: false, order: 21 },
+  { name: 'Thông Tin', path: 'thong-tin', view: 'about', isHovered: false, order: 22 },
 ])
+
+const collections = computed(() => store.getters.getCollections)
+
+const syncCollectionsToMenuItems = () => {
+  // Xóa các mục cũ trước khi thêm mới (nếu cần)
+  menuItems.splice(0, menuItems.length, ...menuItems.filter((item) => !item.isCollection))
+
+  // Thêm mới các mục từ collections với thứ tự mặc định
+  const collectionMenuItems = collections.value.map((item, index) => ({
+    name: item.name,
+    path: item.id,
+    view: 'collection',
+    isCollection: true, // Dùng để xác định các mục từ collections
+    isHovered: false,
+    order: index + 1, // Đặt thứ tự cho các mục từ collections
+  }))
+  menuItems.push(...collectionMenuItems)
+
+  // Sắp xếp menuItems theo thứ tự
+  menuItems.sort((a, b) => a.order - b.order)
+}
+
+// Theo dõi thay đổi của collections và đồng bộ với menuItems
+watch(collections, syncCollectionsToMenuItems, { immediate: true })
+
+onMounted(() => {
+  syncCollectionsToMenuItems()
+})
 
 function navigateTo(item) {
   router.push({ name: item.view, params: { id: item.path } }).then(() => {
-    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+    window.scrollTo(0, 0)
   })
 }
 </script>
