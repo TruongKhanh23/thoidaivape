@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-4 rounded-lg">
     <!-- Cột 1: ProductImages -->
     <ProductImages :images="product.images" />
 

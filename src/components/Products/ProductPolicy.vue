@@ -8,7 +8,11 @@
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBox } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBox)
+
 export default {
   data() {
     return {

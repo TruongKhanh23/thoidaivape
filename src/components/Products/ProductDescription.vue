@@ -1,29 +1,34 @@
 <template>
-  <ul class="space-y-4">
-    <li v-for="(policy, index) in policies" :key="index" class="flex items-center space-x-2">
-      <font-awesome-icon :icon="policy.icon" class="text-lg text-gray-500" />
-      <p class="text-sm">{{ policy.text }}</p>
-    </li>
-  </ul>
+  <div class="space-y-4">
+    <h2 class="text-lg font-bold text-center border-b-2 pb-2">MÔ TẢ SẢN PHẨM</h2>
+    <div v-html="visibleDescription" class="max-w-3xl mx-auto text-gray-700"></div>
+    <button
+      v-if="!showFullDescription"
+      @click="showFullDescription = true"
+      class="border px-4 py-2 rounded-md mx-auto block w-full"
+    >
+      Xem thêm nội dung +
+    </button>
+  </div>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBox } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faBox)
-
 export default {
+  props: {
+    description: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
-      policies: [
-        { icon: 'box', text: 'Cam kết 100% chính hãng...' },
-        { icon: 'box', text: 'Miễn phí giao hàng...' },
-        { icon: 'box', text: 'Hỗ trợ qua hotline...' },
-        { icon: 'box', text: 'Bảo hành 30 ngày...' },
-        { icon: 'box', text: 'Giảm vĩnh viễn 3%...' },
-      ],
+      showFullDescription: false,
     }
+  },
+  computed: {
+    visibleDescription() {
+      return this.showFullDescription ? this.description : this.description.slice(0, 300) + '...'
+    },
   },
 }
 </script>
