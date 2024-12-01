@@ -95,7 +95,7 @@ async function fetchProductsByCollection(collectionId) {
 }
 
 const brands = computed(() => {
-  const brandsSet = new Set(products.value.map((product) => product.brand.id))
+  const brandsSet = new Set(products.value.map((product) => product.brand.name))
   return Array.from(brandsSet)
 })
 
@@ -128,7 +128,7 @@ const filteredProducts = computed(() => {
     // Brand filter
     if (
       selectedFilters.value.brand.length &&
-      !selectedFilters.value.brand.includes(product.brand.id)
+      !selectedFilters.value.brand.includes(product.brand.name)
     ) {
       return false
     }

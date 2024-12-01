@@ -44,37 +44,71 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed, reactive, watch, onMounted } from 'vue'
 import router from '../router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown, faChevronUp, faTag } from '@fortawesome/free-solid-svg-icons'
+import { useStore } from 'vuex'
 
 library.add(faChevronDown, faChevronUp, faTag)
 
+const store = useStore()
+
 const menuItems = reactive([
-  { name: 'Sale', path: 'sale', view: 'collection' },
-  { name: 'Podsystem', path: 'podsystem', view: 'collection' },
-  { name: 'Vape & Box', path: 'vape-box', view: 'collection' },
-  { name: 'Saltnic', path: 'saltnic', view: 'collection' },
-  { name: 'Freebase', path: 'freebase', view: 'collection' },
-  {
-    name: 'Phụ kiện',
-    path: 'phu-kien',
-    view: 'collection',
-    subMenu: [
-      { name: 'Đầu pod', path: 'dau-pod', view: 'collection' },
-      { name: 'Occ & coil', path: 'occ-coil', view: 'collection' },
-    ],
-    isHovered: false,
-  },
-  { name: 'Bài viết', path: 'bai-viet', view: 'news' },
-  { name: 'Thông Tin', path: 'thong-tin', view: 'about' },
+  { name: 'Sale', path: 'sale', view: 'collection', order: 0 },
+  { name: 'Bài viết', path: 'bai-viet', view: 'news', isHovered: false, order: 21 },
+  { name: 'Thông Tin', path: 'thong-tin', view: 'about', isHovered: false, order: 22 },
 ])
+
+const collections = computed(() => store.getters.getCollections)
+
+const syncCollectionsToMenuItems = () => {
+  // Xóa các mục cũ trước khi thêm mới (nếu cần)
+  menuItems.splice(0, menuItems.length, ...menuItems.filter((item) => !item.isCollection))
+
+  // Thêm mới các mục từ collections với thứ tự mặc định
+  const collectionMenuItems = collections.value
+    .filter((collection) => collection.type && collection.type.id == 'parrent')
+    .map((collection) => {
+      const item = {
+        name: collection.name,
+        path: collection.id,
+        view: 'collection',
+        isCollection: true, // Dùng để xác định các mục từ collections
+        isHovered: false,
+        order: collection.orderNumber,
+      }
+      if (collection.childrens) {
+        item.subMenu = []
+        for (const children of collection.childrens) {
+          item.subMenu.push({
+            name: children.name,
+            path: children.id,
+            view: 'collection',
+            order: children.orderNumber,
+          })
+        }
+      }
+      return item
+    })
+
+  menuItems.push(...collectionMenuItems)
+
+  // Sắp xếp menuItems theo thứ tự
+  menuItems.sort((a, b) => a.order - b.order)
+}
+
+// Theo dõi thay đổi của collections và đồng bộ với menuItems
+watch(collections, syncCollectionsToMenuItems, { immediate: true })
+
+onMounted(() => {
+  syncCollectionsToMenuItems()
+})
 
 function navigateTo(item) {
   router.push({ name: item.view, params: { id: item.path } }).then(() => {
-    window.scrollTo(0, 0) // Scroll to the top after navigating to home
+    window.scrollTo(0, 0)
   })
 }
 </script>
