@@ -1,5 +1,5 @@
 import { db } from '@/firebaseConfig'
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
+import { doc, collection, query, where, getDocs, orderBy, getDoc } from 'firebase/firestore'
 
 export async function getAllProducts() {
   const products = []
@@ -46,6 +46,27 @@ export async function getProductsByCollection(collectionId, source = 'default') 
     return products
   } catch (error) {
     console.error('Error fetching products:', error)
+    throw error
+  }
+}
+
+export const getProductById = async (id) => {
+  console.log('id: ', id)
+
+  try {
+    const productDetailsDocRef = doc(db, 'product-details', id)
+    const productDetailsDoc = await getDoc(productDetailsDocRef)
+
+    if (productDetailsDoc.exists()) {
+      return {
+        id,
+        ...productDetailsDoc.data(),
+      }
+    } else {
+      throw new Error('Product not found')
+    }
+  } catch (error) {
+    console.error('Error getting product:', error.message)
     throw error
   }
 }
