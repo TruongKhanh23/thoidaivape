@@ -1,7 +1,7 @@
 <template>
   <div class="text-center mx-auto px-4 py-8 bg-white border border-gray-300 rounded-lg space-y-4">
     <CText variant="title-3">{{ title }}</CText>
-    <CText v-if="!isMobile">{{ description }}</CText>
+    <CText v-if="!isMobile" v-html="description"></CText>
     <div v-else class="space-y-4">
       <CText :class="{ 'line-clamp-3': !showFull }">{{ description }}</CText>
       <CText variant="btn" v-if="description?.length > 150" @click="toggleShowFull">
