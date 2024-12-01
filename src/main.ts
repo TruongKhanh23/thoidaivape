@@ -8,7 +8,8 @@ import router from './router'
 import store from './store'
 import FontAwesomeIcon from './fontAwesome'
 import globalComponents from './plugins/globalComponents'
-
+import VueSplide from '@splidejs/vue-splide'
+import '@splidejs/splide/dist/css/splide.min.css'
 import 'vue3-toastify/dist/index.css'
 import { toast } from 'vue3-toastify'
 
@@ -28,6 +29,7 @@ onAuthStateChanged(auth, (user) => {
     app.component('font-awesome-icon', FontAwesomeIcon)
     app.use(globalComponents)
     app.use(router)
+    app.use(VueSplide)
     app.use(store)
     app.mount('#app')
     isInitialized = true
