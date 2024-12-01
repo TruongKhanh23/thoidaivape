@@ -16,7 +16,7 @@
         id="amount"
         type="number"
         v-model.number="amount"
-        class="w-16 border rounded-md text-center"
+        class="w-12 h-8 border rounded-md text-center"
         min="1"
       />
     </div>

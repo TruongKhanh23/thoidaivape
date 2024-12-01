@@ -10,3 +10,13 @@ export function formatDate(date) {
   // Trả về chuỗi định dạng dd/mm/yyyy hh:mm:ss
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
 }
+
+export function formatCurrency(value) {
+  if (value) {
+    // Format giá trị thành chuỗi số có dấu phẩy
+    const formattedValue = new Intl.NumberFormat('vi-VN').format(value)
+    // Thêm chữ "đ" ở cuối
+    return `${formattedValue} đ`
+  }
+  return '0 đ' // Xử lý trường hợp giá trị không hợp lệ
+}

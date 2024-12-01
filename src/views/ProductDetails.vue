@@ -4,10 +4,10 @@
     <ProductImages :images="product.images" />
 
     <!-- Cột 2: Các thành phần khác -->
-    <div>
+    <div class="space-y-4">
       <ProductInfo
         :name="product.name"
-        :code="product.code"
+        :code="product.id"
         :price="product.price"
         :salePrice="product.salePrice"
       />
